@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h2>Painel de Administração</h2>
+<p>Bem-vindo {{ session.get("nome") }}! Aqui podes gerir:</p>
+<ul>
+    <li><a href="#">Utilizadores</a></li>
+    <li><a href="#">Vagas</a></li>
+    <li><a href="#">Conteúdos (notícias, dicas)</a></li>
+</ul>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h2>Área da Empresa</h2>
+<p>Bem-vindo {{ session.get("nome") }}!</p>
+
+<div class="dashboard-empresa">
+    <div class="card">
+        <h3><a href="{{ url_for('publicar_vaga') }}">📌 Publicar Vaga</a></h3>
+        <p>Cria uma nova oferta de emprego, estágio ou bolsa.</p>
+    </div>
+
+    <div class="card">
+        <h3><a href="{{ url_for('minhas_vagas') }}">📋 Minhas Vagas</a></h3>
+        <p>Consulta todas as vagas que publicaste.</p>
+    </div>
+
+    <div class="card">
+        <h3><a href="{{ url_for('gerir_candidaturas') }}">📂 Gerir Candidaturas</a></h3>
+        <p>Consulta e baixa os CVs enviados pelos estudantes.</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h2>As Minhas Vagas</h2>
+
+<ul>
+    {% for vaga in vagas %}
+        <li>
+            <b>{{ vaga.titulo }}</b> - {{ vaga.cidade }} ({{ vaga.tipo }})<br>
+            <i>Categoria:</i> {{ vaga.categoria }}<br>
+            <a href="{{ url_for('detalhes_vaga', vaga_id=vaga.id) }}">👁 Ver detalhes</a>
+        </li>
+    {% else %}
+        <p>Não publicaste nenhuma vaga ainda.</p>
+    {% endfor %}
+</ul>
+{% endblock %}

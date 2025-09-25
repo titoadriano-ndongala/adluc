@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h2>Login</h2>
+{% if erro %}
+    <p style="color:red;">{{ erro }}</p>
+{% endif %}
+<form method="POST" action="/login">
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="senha">Senha:</label><br>
+    <input type="password" id="senha" name="senha" required><br><br>
+
+    <button type="submit">Entrar</button>
+</form>
+<p>Ainda não tens conta? <a href="{{ url_for('pagina_registo') }}">Regista-te aqui</a></p>
+{% endblock %}

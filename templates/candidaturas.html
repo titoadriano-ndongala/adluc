@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h2>As Minhas Candidaturas</h2>
+
+<ul>
+    {% for cand in candidaturas %}
+        <li>
+            <b>{{ cand.vaga.titulo }}</b> - {{ cand.vaga.cidade }} ({{ cand.vaga.tipo }})<br>
+            <i>Mensagem:</i> {{ cand.mensagem or "Sem mensagem" }}
+        </li>
+    {% else %}
+        <p>Ainda não te candidataste a nenhuma vaga.</p>
+    {% endfor %}
+</ul>
+{% endblock %}

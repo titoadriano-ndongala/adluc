@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h2>Publicar Nova Vaga</h2>
+<form method="POST">
+    <label for="titulo">Nome da Vaga:</label>
+    <input type="text" id="titulo" name="titulo" required>
+
+    <label for="categoria">Categoria:</label>
+    <select id="categoria" name="categoria" required>
+        <option value="">-- Escolher --</option>
+        <option>Administração / Secretariado</option>
+        <option>Agricultura / Florestas / Pescas</option>
+        <option>Arquitectura / Design</option>
+        <option>Artes / Entretenimento / Media</option>
+        <option>Banca / Seguros / Serviços Financeiros</option>
+        <option>Beleza / Moda / Bem Estar</option>
+        <option>Call Center / Help Desk</option>
+        <option>Comercial / Vendas</option>
+        <option>Comunicação Social / Media</option>
+        <option>Construção Civil</option>
+        <option>Contabilidade / Finanças</option>
+        <option>Educação / Formação</option>
+        <option>Engenharia (Civil)</option>
+        <option>Engenharia (Informática / Programação)</option>
+        <option>Gestão de Empresas / Economia</option>
+        <option>Hotelaria / Turismo</option>
+        <option>Saúde / Medicina / Enfermagem</option>
+        <option>Transportes / Logística</option>
+        <!-- (podes expandir com todas as restantes categorias da lista) -->
+    </select>
+
+    <label for="horario">Tipo de Horário:</label>
+    <select id="horario" name="horario">
+        <option value="full-time">Full-time</option>
+        <option value="part-time">Part-time</option>
+        <option value="remoto">Remoto</option>
+    </select>
+
+    <label for="tipo">Tipo de Oportunidade:</label>
+    <select id="tipo" name="tipo">
+        <option value="emprego">Emprego</option>
+        <option value="estagio">Estágio</option>
+        <option value="bolsa">Bolsa</option>
+    </select>
+
+    <label for="descricao">Detalhes da Vaga:</label>
+    <textarea id="descricao" name="descricao" rows="5" required></textarea>
+
+    <button type="submit">Publicar</button>
+</form>
+{% endblock %}
