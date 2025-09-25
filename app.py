@@ -23,10 +23,7 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-
-# =====================
-# IMPORTAÇÃO DE RSS
-# =====================
+#Importar o RSS
 RSS_URL = "http://www.net-empregos.com/rss.asp"
 
 def importar_vagas_netempregos():

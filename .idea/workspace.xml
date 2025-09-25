@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ba04444-fe45-46c5-8664-10e27ad62358" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/detalhes_vaga.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/detalhes_vaga.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/editar_vaga.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/editar_vaga.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/empresa.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/empresa.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/gerir_candidaturas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/gerir_candidaturas.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/minhas_vagas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/minhas_vagas.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/vagas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/vagas.html" afterDir="false" />
+    <list default="true" id="8ba04444-fe45-46c5-8664-10e27ad62358" name="Changes" comment="Projecto Final AdLuc IEFP 3">
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,6 +97,23 @@
       <workItem from="1758737416015" duration="13904000" />
       <workItem from="1758764733570" duration="3570000" />
     </task>
+    <task id="LOCAL-00001" summary="Projecto Final AdLuc IEFP 3">
+      <option name="closed" value="true" />
+      <created>1758787904374</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1758787904374</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Projecto Final AdLuc IEFP 3">
+      <option name="closed" value="true" />
+      <created>1758788186442</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1758788186442</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -119,6 +129,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Projecto Final AdLuc IEFP 3" />
+    <option name="LAST_COMMIT_MESSAGE" value="Projecto Final AdLuc IEFP 3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/adluc$run.coverage" NAME="run Coverage Results" MODIFIED="1758753021788" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
