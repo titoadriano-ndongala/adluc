@@ -1,200 +1,193 @@
-/* ======== ESTILO GERAL ======== */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f9fa;
-    color: #333;
+/* ===== VARIÁVEIS DE COR ===== */
+:root {
+    --cor-primaria: #2a3d66;
+    --cor-secundaria: #1b2947;
+    --cor-sucesso: #28a745;
+    --cor-erro: #dc3545;
+    --cor-bg: #f4f6f9;
+    --cor-branca: #ffffff;
 }
 
-/* ======== HEADER ======== */
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== BODY ===== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--cor-bg);
+    color: #333;
+    line-height: 1.6;
+}
+
+/* ===== HEADER ===== */
 header {
-    background-color: #2a3d66;
-    color: white;
+    background-color: var(--cor-primaria);
+    color: var(--cor-branca);
     padding: 15px 30px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-header img {
-    height: 50px;
+header .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 header h1 {
-    margin: 0;
-    font-size: 20px;
+    font-size: 22px;
 }
 
 nav a {
-    color: white;
+    color: var(--cor-branca);
     text-decoration: none;
     margin-left: 15px;
-    font-weight: bold;
+    font-weight: 500;
+    transition: color 0.2s;
 }
 
 nav a:hover {
-    text-decoration: underline;
+    color: #ffcc00;
 }
 
-/* ======== CONTEÚDO ======== */
+/* ===== MAIN ===== */
 main {
     padding: 20px;
-    max-width: 1100px;
+    max-width: 1200px;
     margin: auto;
 }
 
-/* ======== FOOTER ======== */
+/* ===== FOOTER ===== */
 footer {
-    background-color: #2a3d66;
-    color: white;
+    background-color: var(--cor-primaria);
+    color: var(--cor-branca);
     text-align: center;
-    padding: 10px;
-    margin-top: 20px;
+    padding: 15px;
+    margin-top: 40px;
 }
 
-/* ======== LAYOUT DE VAGAS COM FILTROS ======== */
-.layout-vagas {
-    display: flex;
-    flex-direction: column; /* mobile first */
+/* ===== BOTÕES ===== */
+button, .btn {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-primario {
+    background: var(--cor-primaria);
+    color: var(--cor-branca);
+}
+
+.btn-primario:hover {
+    background: var(--cor-secundaria);
+}
+
+.btn-perigo {
+    background: var(--cor-erro);
+    color: var(--cor-branca);
+}
+
+.btn-perigo:hover {
+    background: #a71d2a;
+}
+
+.btn-sucesso {
+    background: var(--cor-sucesso);
+    color: var(--cor-branca);
+}
+
+.btn-sucesso:hover {
+    background: #1e7e34;
+}
+
+/* ===== CARDS ===== */
+.card {
+    background: var(--cor-branca);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+/* ===== GRID ===== */
+.grid {
+    display: grid;
     gap: 20px;
 }
 
-/* FILTROS */
-.filtros {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.grid-2 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-.filtros h3 {
-    margin-top: 0;
-    color: #2a3d66;
-}
-
-.filtros label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-.filtros input, .filtros select, .filtros button {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
-
-.filtros button {
-    background-color: #2a3d66;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-top: 15px;
-    font-weight: bold;
-}
-
-.filtros button:hover {
-    background-color: #1b2947;
-}
-
-/* LISTA DE VAGAS */
-.vagas-lista {
-    display: grid;
+.grid-3 {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 15px;
 }
 
-/* CARDS DE VAGAS */
-.vaga-card {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: transform 0.2s ease;
-}
-
-.vaga-card:hover {
-    transform: scale(1.02);
-}
-
-.vaga-card h3 {
-    margin-top: 0;
-    color: #2a3d66;
-}
-
-.vaga-card a {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 6px 12px;
-    background-color: #2a3d66;
-    color: white;
-    text-decoration: none;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-.vaga-card a:hover {
-    background-color: #1b2947;
-}
-
-/* ======== FORMULÁRIOS ======== */
+/* ===== FORMULÁRIOS ===== */
 form {
-    background: white;
-    padding: 20px;
+    background: var(--cor-branca);
+    padding: 25px;
     border-radius: 8px;
-    max-width: 400px;
+    max-width: 600px;
     margin: auto;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 form label {
+    font-weight: 600;
+    margin-top: 15px;
     display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
 }
 
-form input, form button {
+form input, form select, form textarea {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 4px;
+    margin-top: 6px;
+    border-radius: 5px;
     border: 1px solid #ccc;
 }
 
+form input:focus, form select:focus, form textarea:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+    box-shadow: 0 0 5px rgba(42, 61, 102, 0.5);
+}
+
 form button {
-    background-color: #2a3d66;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
+    margin-top: 20px;
 }
 
-form button:hover {
-    background-color: #1b2947;
+/* ===== LISTA VAGAS ===== */
+.vagas-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
 }
 
-/* ======== RESPONSIVO (desktop) ======== */
-@media (min-width: 800px) {
-    .layout-vagas {
-        flex-direction: row; /* filtros à esquerda, vagas à direita */
-    }
-
-    .filtros {
-        flex: 1;
-        max-width: 250px;
-        height: fit-content;
-    }
-
-    .vagas-lista {
-        flex: 3;
-    }
+.vaga-card h3 {
+    color: var(--cor-primaria);
+    margin-bottom: 10px;
 }
 
+.vaga-card p {
+    margin: 4px 0;
+}
+
+/* ===== DASHBOARD EMPRESA ===== */
 .dashboard-empresa {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -202,20 +195,143 @@ form button:hover {
     margin-top: 20px;
 }
 
-.dashboard-empresa .card {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+/* ===== ALERTAS ===== */
+.alerta {
+    padding: 10px;
+    border-radius: 6px;
+    margin: 15px 0;
+    font-weight: bold;
+}
+
+.alerta-sucesso {
+    background: #d4edda;
+    color: #155724;
+}
+
+.alerta-erro {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* ===== LAYOUT VAGAS ===== */
+.layout-vagas {
+    display: flex;
+    gap: 20px;
+}
+
+/* Sidebar de filtros */
+.filtros {
+    background: var(--cor-branca);
     padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    width: 250px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.filtros h3 {
+    margin-bottom: 15px;
+    color: var(--cor-primaria);
+}
+
+/* Botão toggle para mobile */
+.toggle-filtros {
+    display: none;
+    margin-bottom: 15px;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 800px) {
+    .layout-vagas {
+        flex-direction: column;
+    }
+
+    .filtros {
+        display: none; /* escondida por defeito no mobile */
+        width: 100%;
+    }
+
+    .toggle-filtros {
+        display: inline-block;
+    }
+
+    .filtros.ativo {
+        display: block; /* abre quando ativo */
+    }
+}
+
+/* HERO */
+.hero {
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 40px 20px;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, var(--cor-primaria), var(--cor-secundaria));
+    color: white;
 }
 
-.dashboard-empresa .card h3 a {
-    color: #2a3d66;
-    text-decoration: none;
+.hero h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
 }
 
-.dashboard-empresa .card h3 a:hover {
-    text-decoration: underline;
+.hero p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+/* OFERTAS */
+.ofertas {
+    margin: 30px 0;
+}
+
+.ofertas h3 {
+    margin-bottom: 15px;
+    color: var(--cor-primaria);
+}
+
+/* DICAS */
+.dicas ul {
+    list-style: none;
+}
+
+.dicas li {
+    margin: 8px 0;
+}
+
+
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 50px 20px;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, #C2185B, #880E4F); /* cores da marca */
+    color: white;
+    border-radius: 10px;
+}
+
+.hero-logo {
+    max-width: 180px;
+    margin-bottom: 15px;
+}
+
+.hero h2 {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.detalhes-vaga {
+    max-width: 700px;
+    margin: auto;
+    padding: 25px;
+}
+
+.form-candidatura {
+    margin-top: 20px;
 }

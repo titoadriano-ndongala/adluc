@@ -4,21 +4,21 @@
 <h2>Oportunidades Disponíveis</h2>
 
 <div class="layout-vagas">
+    <!-- BOTÃO TOGGLE (mobile) -->
+    <button class="btn btn-primario toggle-filtros" onclick="toggleFiltros()">⚙️ Filtros</button>
+
     <!-- FILTROS -->
-    <aside class="filtros">
+    <aside class="filtros" id="sidebar-filtros">
         <h3>Pesquisa Avançada</h3>
         <form method="GET" action="/vagas">
             <label for="cidade">Cidade:</label>
             <input type="text" id="cidade" name="cidade">
 
-            <label for="zona">Zona:</label>
-            <input type="text" id="zona" name="zona">
-
             <label for="horario">Tipo de Horário:</label>
             <select id="horario" name="horario">
                 <option value="">-- Escolher --</option>
-                <option value="part-time">Part-time</option>
                 <option value="full-time">Full-time</option>
+                <option value="part-time">Part-time</option>
                 <option value="remoto">Remoto</option>
             </select>
 
@@ -30,21 +30,22 @@
                 <option value="bolsa">Bolsa</option>
             </select>
 
-            <button type="submit">Filtrar</button>
+            <button type="submit" class="btn btn-sucesso">🔍 Filtrar</button>
         </form>
     </aside>
 
     <!-- LISTAGEM DE VAGAS -->
     <section class="vagas-lista">
         {% for vaga in vagas %}
-            <div class="vaga-card">
+            <div class="card vaga-card">
                 <h3>{{ vaga.titulo }}</h3>
+                <p><b>Categoria:</b> {{ vaga.categoria }}</p>
                 <p><b>Cidade:</b> {{ vaga.cidade }}</p>
                 <p><b>Horário:</b> {{ vaga.horario }}</p>
                 <p><b>Tipo:</b> {{ vaga.tipo }}</p>
                 <p>{{ vaga.descricao[:120] }}...</p>
 
-                <a href="{{ url_for('detalhes_vaga', vaga_id=vaga.id) }}">👁 Ver detalhes</a>
+                <a href="{{ url_for('detalhes_vaga', vaga_id=vaga.id) }}" class="btn btn-primario">👁 Ver detalhes</a>
             </div>
         {% else %}
             <p>Nenhuma vaga disponível no momento.</p>

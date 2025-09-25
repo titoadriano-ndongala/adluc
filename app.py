@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, s
 from modelos.modelos import db, Utilizador, Vaga, Candidatura
 import os
 from werkzeug.utils import secure_filename
+import feedparser
 
 app = Flask(__name__)
 app.secret_key = "segredo_adluc"
@@ -21,6 +22,35 @@ db.init_app(app)
 
 with app.app_context():
     db.create_all()
+
+
+# =====================
+# IMPORTAÇÃO DE RSS
+# =====================
+RSS_URL = "http://www.net-empregos.com/rss.asp"
+
+def importar_vagas_netempregos():
+    feed = feedparser.parse(RSS_URL)
+    for entry in feed.entries[:10]:  # limita às 10 mais recentes
+        titulo = entry.get("title", "")
+        descricao = entry.get("summary", "")
+        link = entry.get("link", "")
+
+        if not Vaga.query.filter_by(link_externo=link).first():
+            vaga = Vaga(
+                titulo=titulo,
+                descricao=descricao,
+                externa=True,
+                link_externo=link
+            )
+            db.session.add(vaga)
+    db.session.commit()
+
+
+
+
+
+
 
 # Página inicial
 @app.route("/")
@@ -171,6 +201,62 @@ def pagina_admin():
     if session.get("tipo") != "admin":
         return redirect(url_for("pagina_login"))
     return render_template("admin.html")
+
+
+
+@app.route("/editar_vaga/<int:vaga_id>", methods=["GET", "POST"])
+def editar_vaga(vaga_id):
+    if session.get("tipo") != "empresa":
+        return redirect(url_for("pagina_login"))
+
+    vaga = Vaga.query.get_or_404(vaga_id)
+
+    # Garante que a vaga pertence à empresa logada
+    if vaga.empresa_id != session["utilizador_id"]:
+        return redirect(url_for("minhas_vagas"))
+
+    if request.method == "POST":
+        vaga.titulo = request.form.get("titulo")
+        vaga.categoria = request.form.get("categoria")
+        vaga.descricao = request.form.get("descricao")
+        vaga.cidade = request.form.get("cidade")
+        vaga.horario = request.form.get("horario")
+        vaga.tipo = request.form.get("tipo")
+        db.session.commit()
+        return redirect(url_for("minhas_vagas"))
+
+    return render_template("editar_vaga.html", vaga=vaga)
+
+
+
+@app.route("/remover_vaga/<int:vaga_id>", methods=["POST"])
+def remover_vaga(vaga_id):
+    if session.get("tipo") != "empresa":
+        return redirect(url_for("pagina_login"))
+
+    vaga = Vaga.query.get_or_404(vaga_id)
+
+    if vaga.empresa_id != session["utilizador_id"]:
+        return redirect(url_for("minhas_vagas"))
+
+    # 🔹 Antes de apagar, remover os ficheiros CV das candidaturas desta vaga
+    for cand in vaga.candidaturas:
+        if cand.ficheiro_cv:  # garantir que existe
+            caminho_cv = os.path.join(app.config["UPLOAD_FOLDER"], cand.ficheiro_cv)
+            if os.path.exists(caminho_cv):
+                os.remove(caminho_cv)
+
+    # 🔹 Apaga a vaga (cascata remove as candidaturas do BD)
+    db.session.delete(vaga)
+    db.session.commit()
+
+    return redirect(url_for("minhas_vagas"))
+
+
+
+
+
+
 
 # Logout
 @app.route("/logout")

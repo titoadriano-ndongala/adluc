@@ -2,39 +2,35 @@
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
-    <title>AdLuc - Portal de Oportunidades</title>
+    <title>AdLuc - Student Job Site</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='imagens/favicon.png') }}">
+    <!-- Favicon reservado -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='imagens/favicon.png') }}">
 </head>
 <body>
     <!-- HEADER -->
     <header>
         <div class="logo">
-            <img src="{{ url_for('static', filename='imagens/adluc.svg') }}" alt="Logo AdLuc" width="100">
-            <h1>AdLuc</h1>
+            <img src="{{ url_for('static', filename='imagens/adluc_.png') }}" alt="Logo AdLuc" height="100">
         </div>
         <nav>
             <a href="{{ url_for('pagina_inicial') }}">Início</a>
             <a href="{{ url_for('pagina_vagas') }}">Vagas</a>
 
             {% if not session.get("utilizador_id") %}
-                <!-- Visitante -->
                 <a href="{{ url_for('pagina_login') }}">Login</a>
                 <a href="{{ url_for('pagina_registo') }}">Registar</a>
             {% endif %}
 
             {% if session.get("tipo") == "empresa" %}
-                <!-- Menu Empresa -->
                 <a href="{{ url_for('pagina_empresa') }}">Dashboard</a>
                 <a href="{{ url_for('publicar_vaga') }}">Publicar Vaga</a>
                 <a href="{{ url_for('gerir_candidaturas') }}">Gerir Candidaturas</a>
             {% elif session.get("tipo") == "admin" %}
-                <!-- Menu Admin -->
                 <a href="{{ url_for('pagina_admin') }}">Administração</a>
             {% endif %}
 
             {% if session.get("utilizador_id") %}
-                <!-- Quando logado -->
                 <span>👤 {{ session.get("nome") }} ({{ session.get("tipo") }})</span>
                 <a href="{{ url_for('logout') }}">Logout</a>
             {% endif %}
@@ -50,5 +46,7 @@
     <footer>
         <p>&copy; 2025 AdLuc - Todos os direitos reservados.</p>
     </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

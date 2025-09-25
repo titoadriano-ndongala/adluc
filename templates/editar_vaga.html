@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block conteudo %}
+<h2>Editar Vaga</h2>
+<form method="POST">
+    <label for="titulo">Nome da Vaga:</label>
+    <input type="text" id="titulo" name="titulo" value="{{ vaga.titulo }}" required>
+
+    <label for="categoria">Categoria:</label>
+    <input type="text" id="categoria" name="categoria" value="{{ vaga.categoria }}" required>
+
+    <label for="cidade">Cidade:</label>
+    <input type="text" id="cidade" name="cidade" value="{{ vaga.cidade }}">
+
+    <label for="horario">Tipo de Horário:</label>
+    <select id="horario" name="horario">
+        <option value="full-time" {% if vaga.horario == "full-time" %}selected{% endif %}>Full-time</option>
+        <option value="part-time" {% if vaga.horario == "part-time" %}selected{% endif %}>Part-time</option>
+        <option value="remoto" {% if vaga.horario == "remoto" %}selected{% endif %}>Remoto</option>
+    </select>
+
+    <label for="tipo">Tipo de Oportunidade:</label>
+    <select id="tipo" name="tipo">
+        <option value="emprego" {% if vaga.tipo == "emprego" %}selected{% endif %}>Emprego</option>
+        <option value="estagio" {% if vaga.tipo == "estagio" %}selected{% endif %}>Estágio</option>
+        <option value="bolsa" {% if vaga.tipo == "bolsa" %}selected{% endif %}>Bolsa</option>
+    </select>
+
+    <label for="descricao">Detalhes da Vaga:</label>
+    <textarea id="descricao" name="descricao" rows="5" required>{{ vaga.descricao }}</textarea>
+
+    <button type="submit">💾 Guardar alterações</button>
+</form>
+
+<a href="{{ url_for('minhas_vagas') }}">⬅ Voltar às minhas vagas</a>
+{% endblock %}

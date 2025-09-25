@@ -34,6 +34,9 @@ class Vaga(db.Model):
     empresa_id = db.Column(db.Integer, db.ForeignKey("utilizadores.id"), nullable=True)
     empresa = db.relationship("Utilizador", backref="vagas", lazy=True)
 
+    # 🔹 Se uma vaga for removida, apaga também candidaturas associadas
+    candidaturas = db.relationship("Candidatura", backref="vaga", cascade="all, delete-orphan")
+
 # Modelo de candidatura
 class Candidatura(db.Model):
     __tablename__ = "candidaturas"
@@ -43,4 +46,3 @@ class Candidatura(db.Model):
     ficheiro_cv = db.Column(db.String(200), nullable=False)
 
     estudante = db.relationship("Utilizador", backref="candidaturas", lazy=True)
-    vaga = db.relationship("Vaga", backref="candidaturas", lazy=True)

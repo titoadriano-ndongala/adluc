@@ -8,7 +8,11 @@
         <li>
             <b>{{ vaga.titulo }}</b> - {{ vaga.cidade }} ({{ vaga.tipo }})<br>
             <i>Categoria:</i> {{ vaga.categoria }}<br>
-            <a href="{{ url_for('detalhes_vaga', vaga_id=vaga.id) }}">👁 Ver detalhes</a>
+            <a href="{{ url_for('detalhes_vaga', vaga_id=vaga.id) }}">👁 Ver detalhes</a> |
+            <a href="{{ url_for('editar_vaga', vaga_id=vaga.id) }}">✏️ Editar</a>
+            <form method="POST" action="{{ url_for('remover_vaga', vaga_id=vaga.id) }}" style="display:inline;">
+                <button type="submit" onclick="return confirm('Tens a certeza que queres remover esta vaga?')">🗑 Remover</button>
+            </form>
         </li>
     {% else %}
         <p>Não publicaste nenhuma vaga ainda.</p>
