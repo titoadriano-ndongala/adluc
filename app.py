@@ -52,7 +52,17 @@ def importar_vagas_netempregos():
 # Página inicial
 @app.route("/")
 def pagina_inicial():
-    return render_template("index.html")
+  #  return render_template("index.html")
+
+      importar_vagas_netempregos()  # atualiza RSS
+
+      vagas_internas = Vaga.query.filter_by(externa=False).limit(3).all()
+      vagas_externas = Vaga.query.filter_by(externa=True).limit(3).all()
+
+      return render_template("index.html",
+                             vagas_internas=vagas_internas,
+                             vagas_externas=vagas_externas)
+
 
 # Login
 @app.route("/login", methods=["GET", "POST"])

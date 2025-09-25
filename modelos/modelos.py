@@ -28,7 +28,7 @@ class Vaga(db.Model):
     cidade = db.Column(db.String(100))
     horario = db.Column(db.String(50))       # Full-time, Part-time, Remoto
     tipo = db.Column(db.String(50))          # Emprego, Estágio, Bolsa
-    externa = db.Column(db.Boolean, default=False)
+    externa = db.Column(db.Boolean, default=False, nullable=False)
     link_externo = db.Column(db.String(300))
 
     empresa_id = db.Column(db.Integer, db.ForeignKey("utilizadores.id"), nullable=True)
