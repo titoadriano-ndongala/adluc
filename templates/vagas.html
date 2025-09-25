@@ -5,7 +5,7 @@
 
 <div class="layout-vagas">
     <!-- BOTÃO TOGGLE (mobile) -->
-    <button class="btn btn-primario toggle-filtros" onclick="toggleFiltros()">⚙️ Filtros</button>
+    <button class="btn btn-primario toggle-filtros" onclick="toggleFiltros()">Filtros</button>
 
     <!-- FILTROS -->
     <aside class="filtros" id="sidebar-filtros">
@@ -30,7 +30,7 @@
                 <option value="bolsa">Bolsa</option>
             </select>
 
-            <button type="submit" class="btn btn-sucesso">🔍 Filtrar</button>
+            <button type="submit" class="btn btn-sucesso">Filtrar</button>
         </form>
     </aside>
 
@@ -45,7 +45,7 @@
                 <p><b>Tipo:</b> {{ vaga.tipo }}</p>
                 <p>{{ vaga.descricao[:120] }}...</p>
 
-                <a href="{{ url_for('detalhes_vaga', vaga_id=vaga.id) }}" class="btn btn-primario">👁 Ver detalhes</a>
+                <a href="{{ url_for('detalhes_vaga', vaga_id=vaga.id) }}" class="btn btn-primario">Ver detalhes</a>
             </div>
         {% else %}
             <p>Nenhuma vaga disponível no momento.</p>

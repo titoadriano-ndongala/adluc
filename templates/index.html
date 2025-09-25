@@ -5,11 +5,11 @@
     <img src="{{ url_for('static', filename='imagens/adluc_.png') }}" alt="Logo AdLuc" class="hero-logo">
     <h2>Student Job Site</h2>
     <p>Encontra o teu futuro: empregos, estágios e bolsas feitos para estudantes.</p>
-    <a href="{{ url_for('pagina_vagas') }}" class="btn btn-primario">🔍 Explorar Vagas</a>
+    <a href="{{ url_for('pagina_vagas') }}" class="btn btn-primario">Explorar Vagas</a>
 </section>
 
 <section class="ofertas">
-    <h3>📌 Últimas Vagas Internas</h3>
+    <h3>Últimas Vagas Internas</h3>
     <div class="grid grid-3">
         {% for vaga in vagas_internas %}
             <div class="card vaga-card">
@@ -27,13 +27,13 @@
 
 <!-- VAGAS EXTERNAS -->
 <section class="ofertas">
-    <h3>🌍 Últimas Vagas Externas (Net-Empregos)</h3>
+    <h3>Últimas Vagas Externas (Net-Empregos)</h3>
     <div class="grid grid-3">
         {% for vaga in vagas_externas %}
             <div class="card vaga-card">
                 <h4>{{ vaga.titulo }}</h4>
                 <p>{{ vaga.descricao[:100] }}...</p>
-                <a href="{{ vaga.link_externo }}" target="_blank" class="btn btn-primario">🌐 Abrir site</a>
+                <a href="{{ vaga.link_externo }}" target="_blank" class="btn btn-primario">Abrir site</a>
             </div>
         {% else %}
             <p>Nenhuma vaga externa encontrada.</p>

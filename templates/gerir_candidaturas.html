@@ -7,7 +7,7 @@
     {% for cand in candidaturas %}
         <li>
             <b>{{ cand.estudante.nome }}</b> candidatou-se à vaga <b>{{ cand.vaga.titulo }}</b><br>
-            <a href="{{ url_for('download_cv', filename=cand.ficheiro_cv) }}">📥 Baixar CV</a>
+            <a href="{{ url_for('download_cv', filename=cand.ficheiro_cv) }}">Fazer Download CV</a>
         </li>
     {% else %}
         <p>Nenhuma candidatura recebida ainda.</p>

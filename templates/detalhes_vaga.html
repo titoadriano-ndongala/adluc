@@ -10,16 +10,16 @@
     <p>{{ vaga.descricao }}</p>
 
     {% if vaga.externa %}
-        <a href="{{ vaga.link_externo }}" target="_blank" class="btn btn-primario">🌐 Candidatar-se no site externo</a>
+        <a href="{{ vaga.link_externo }}" target="_blank" class="btn btn-primario">Candidatar-se no site externo</a>
     {% else %}
         {% if session.get("tipo") == "estudante" %}
             <form method="POST" enctype="multipart/form-data" class="form-candidatura">
                 <label for="cv">Carregar CV (máx 2MB):</label>
                 <input type="file" name="cv" id="cv" accept=".pdf,.doc,.docx" required>
-                <button type="submit" class="btn btn-sucesso">📩 Enviar candidatura</button>
+                <button type="submit" class="btn btn-sucesso">Enviar candidatura</button>
             </form>
         {% else %}
-            <p class="alerta alerta-erro">⚠️ Precisas de login como estudante para te candidatares.</p>
+            <p class="alerta alerta-erro">⚠Precisas de login como estudante para te candidatares.</p>
         {% endif %}
     {% endif %}
 
