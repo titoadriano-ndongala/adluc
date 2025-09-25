@@ -5,33 +5,40 @@
 
 <div class="layout-vagas">
     <!-- BOTÃO TOGGLE (mobile) -->
-    <button class="btn btn-primario toggle-filtros" onclick="toggleFiltros()">Filtros</button>
+    <button class="btn btn-primario toggle-filtros" onclick="toggleFiltros()">⚙️ Filtros</button>
 
     <!-- FILTROS -->
     <aside class="filtros" id="sidebar-filtros">
         <h3>Pesquisa Avançada</h3>
-        <form method="GET" action="/vagas">
+        <form method="GET" action="{{ url_for('pagina_vagas') }}">
+            <label for="q">Texto (título/descrição):</label>
+            <input type="text" id="q" name="q" value="{{ filtros.q }}">
+
             <label for="cidade">Cidade:</label>
-            <input type="text" id="cidade" name="cidade">
+            <input type="text" id="cidade" name="cidade" value="{{ filtros.cidade }}">
+
+            <label for="categoria">Categoria:</label>
+            <input type="text" id="categoria" name="categoria" value="{{ filtros.categoria }}" placeholder="ex.: Informática">
 
             <label for="horario">Tipo de Horário:</label>
             <select id="horario" name="horario">
-                <option value="">-- Escolher --</option>
-                <option value="full-time">Full-time</option>
-                <option value="part-time">Part-time</option>
-                <option value="remoto">Remoto</option>
+                <option value="">-- Todos --</option>
+                <option value="full-time" {% if filtros.horario=='full-time' %}selected{% endif %}>Full-time</option>
+                <option value="part-time" {% if filtros.horario=='part-time' %}selected{% endif %}>Part-time</option>
+                <option value="remoto" {% if filtros.horario=='remoto' %}selected{% endif %}>Remoto</option>
             </select>
 
             <label for="tipo">Tipo de Oportunidade:</label>
             <select id="tipo" name="tipo">
-                <option value="">-- Escolher --</option>
-                <option value="emprego">Emprego</option>
-                <option value="estagio">Estágio</option>
-                <option value="bolsa">Bolsa</option>
+                <option value="">-- Todas --</option>
+                <option value="emprego" {% if filtros.tipo=='emprego' %}selected{% endif %}>Emprego</option>
+                <option value="estagio" {% if filtros.tipo=='estagio' %}selected{% endif %}>Estágio</option>
+                <option value="bolsa" {% if filtros.tipo=='bolsa' %}selected{% endif %}>Bolsa</option>
             </select>
 
-            <button type="submit" class="btn btn-sucesso">Filtrar</button>
+            <button type="submit" class="btn btn-sucesso">🔍 Filtrar</button>
         </form>
+        <p style="margin-top:10px;">Resultado: <b>{{ total }}</b> vagas</p>
     </aside>
 
     <!-- LISTAGEM DE VAGAS -->
@@ -39,17 +46,31 @@
         {% for vaga in vagas %}
             <div class="card vaga-card">
                 <h3>{{ vaga.titulo }}</h3>
-                <p><b>Categoria:</b> {{ vaga.categoria }}</p>
-                <p><b>Cidade:</b> {{ vaga.cidade }}</p>
-                <p><b>Horário:</b> {{ vaga.horario }}</p>
-                <p><b>Tipo:</b> {{ vaga.tipo }}</p>
-                <p>{{ vaga.descricao[:120] }}...</p>
+                {% if vaga.categoria %}<p><b>Categoria:</b> {{ vaga.categoria }}</p>{% endif %}
+                {% if vaga.cidade %}<p><b>Cidade:</b> {{ vaga.cidade }}</p>{% endif %}
+                {% if vaga.horario %}<p><b>Horário:</b> {{ vaga.horario }}</p>{% endif %}
+                {% if vaga.tipo %}<p><b>Tipo:</b> {{ vaga.tipo }}</p>{% endif %}
+                <p>{{ vaga.descricao[:140] }}...</p>
 
-                <a href="{{ url_for('detalhes_vaga', vaga_id=vaga.id) }}" class="btn btn-primario">Ver detalhes</a>
+                {% if vaga.externa %}
+                    <a href="{{ vaga.link_externo }}" target="_blank" class="btn btn-primario">🌐 Abrir site</a>
+                {% else %}
+                    <a href="{{ url_for('detalhes_vaga', vaga_id=vaga.id) }}" class="btn btn-primario">👁 Ver detalhes</a>
+                {% endif %}
             </div>
         {% else %}
-            <p>Nenhuma vaga disponível no momento.</p>
+            <p>Nenhuma vaga encontrada com os filtros atuais.</p>
         {% endfor %}
+
+        <!-- Paginação -->
+        <div style="grid-column: 1/-1; margin-top: 15px;">
+            {% if tem_prev %}
+                <a class="btn" href="{{ url_for('pagina_vagas', pagina=pagina-1, q=filtros.q, cidade=filtros.cidade, categoria=filtros.categoria, horario=filtros.horario, tipo=filtros.tipo) }}">⬅ Anterior</a>
+            {% endif %}
+            {% if tem_next %}
+                <a class="btn" href="{{ url_for('pagina_vagas', pagina=pagina+1, q=filtros.q, cidade=filtros.cidade, categoria=filtros.categoria, horario=filtros.horario, tipo=filtros.tipo) }}">Seguinte ➡</a>
+            {% endif %}
+        </div>
     </section>
 </div>
 {% endblock %}
