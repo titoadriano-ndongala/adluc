@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h2>Portal de Notícias & Dicas</h2>
+
+<div class="conteudos-grid">
+  <!-- COLUNA NOTÍCIAS -->
+  <section>
+    <h3>Últimas Notícias</h3>
+    {% if noticias %}
+      <a href="{{ url_for('detalhe_publicacao', pub_id=noticias[0].id) }}" class="news-featured">
+        {% if noticias[0].foto %}
+          <img src="{{ url_for('download_cv', filename=noticias[0].foto) }}" alt="{{ noticias[0].titulo }}">
+        {% endif %}
+        <div>
+          <h2>{{ noticias[0].titulo }}</h2>
+          <p class="meta">{{ noticias[0].autor.nome }} • {{ noticias[0].data_hora.strftime("%d/%m/%Y") }}</p>
+          <p>{{ noticias[0].conteudo[:150] }}...</p>
+        </div>
+      </a>
+      <ul class="news-list">
+        {% for pub in noticias[1:] %}
+          <li>
+            <a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}">
+              {{ pub.titulo }} <span class="meta">({{ pub.data_hora.strftime("%d/%m") }})</span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Sem notícias disponíveis.</p>
+    {% endif %}
+  </section>
+
+  <!-- COLUNA DICAS -->
+  <section>
+    <h3>Últimas Dicas</h3>
+    {% if dicas %}
+      <a href="{{ url_for('detalhe_publicacao', pub_id=dicas[0].id) }}" class="news-featured">
+        {% if dicas[0].foto %}
+          <img src="{{ url_for('download_cv', filename=dicas[0].foto) }}" alt="{{ dicas[0].titulo }}">
+        {% endif %}
+        <div>
+          <h2>{{ dicas[0].titulo }}</h2>
+          <p class="meta">{{ dicas[0].autor.nome }} • {{ dicas[0].data_hora.strftime("%d/%m/%Y") }}</p>
+          <p>{{ dicas[0].conteudo[:150] }}...</p>
+        </div>
+      </a>
+      <ul class="news-list">
+        {% for pub in dicas[1:] %}
+          <li>
+            <a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}">
+              {{ pub.titulo }} <span class="meta">({{ pub.data_hora.strftime("%d/%m") }})</span>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>Sem dicas disponíveis.</p>
+    {% endif %}
+  </section>
+</div>
+
+<!-- MAIS LIDAS -->
+<section class="mais-lidas">
+  <h3>Mais Lidas</h3>
+  <ul>
+    {% for pub in mais_lidas %}
+      <li>
+        <a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}">
+          {{ pub.titulo }} <span class="meta">({{ pub.data_hora.strftime("%d/%m") }})</span>
+        </a>
+      </li>
+    {% else %}
+      <p>Sem publicações ainda.</p>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

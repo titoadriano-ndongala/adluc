@@ -1,16 +1,17 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
-<h2>Gerir Candidaturas</h2>
+<h2>Candidaturas Recebidas</h2>
 
-<ul>
-    {% for cand in candidaturas %}
-        <li>
-            <b>{{ cand.estudante.nome }}</b> candidatou-se à vaga <b>{{ cand.vaga.titulo }}</b><br>
-            <a href="{{ url_for('download_cv', filename=cand.ficheiro_cv) }}">Fazer Download CV</a>
-        </li>
-    {% else %}
-        <p>Nenhuma candidatura recebida ainda.</p>
-    {% endfor %}
-</ul>
+<section class="vagas-lista">
+  {% for c in candidaturas %}
+    <div class="card vaga-card card-link-wrapper">
+      <a href="{{ url_for('download_cv', filename=c.ficheiro_cv) }}" class="card-link">
+        <h3>{{ c.vaga.titulo }}</h3>
+        <p>📎 CV: {{ c.ficheiro_cv }}</p>
+      </a>
+    </div>
+  {% else %}
+    <p>Sem candidaturas.</p>
+  {% endfor %}
+</section>
 {% endblock %}

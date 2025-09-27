@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h2>{% if request.endpoint == 'pagina_noticias' %}📰 Notícias{% else %}💡 Dicas{% endif %}</h2>
+
+<div class="news-grid">
+  {% for pub in publicacoes %}
+    <a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}" class="news-card">
+      {% if pub.foto %}
+        <img src="{{ url_for('download_cv', filename=pub.foto) }}" alt="{{ pub.titulo }}">
+      {% endif %}
+      <div class="news-content">
+        <h3>{{ pub.titulo }}</h3>
+        <p class="meta">{{ pub.autor.nome }} • {{ pub.data_hora.strftime("%d/%m/%Y") }}</p>
+        <p>{{ pub.conteudo[:100] }}...</p>
+      </div>
+    </a>
+  {% else %}
+    <p>Sem publicações disponíveis.</p>
+  {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>⚙️ Perfil do Admin</h2>
+    {% if sucesso %}<div class="alerta alerta-sucesso">Perfil atualizado!</div>{% endif %}
+
+    <form method="POST" class="auth-form">
+      <label>Nome</label>
+      <input type="text" name="nome" value="{{ admin.nome }}" required>
+      <label>Email</label>
+      <input type="email" name="email" value="{{ admin.email }}" required>
+      <label>Notas Internas</label>
+      <textarea name="notas" rows="4">{{ admin.notas or "" }}</textarea>
+      <button type="submit" class="btn btn-azul full">Guardar</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

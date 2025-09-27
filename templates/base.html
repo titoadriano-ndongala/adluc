@@ -1,53 +1,102 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-    <meta charset="UTF-8">
-    <title>AdLuc - Student Job Site</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <!-- Favicon reservado -->
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='imagens/favicon.png') }}">
+  <meta charset="UTF-8">
+  <title>adluc - Portal de Oportunidades para Estudantes</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="static/imagens/favicon.png" type="image">
+  <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+
 </head>
-<body>
-    <!-- HEADER -->
-    <header>
-        <div class="logo">
-            <img src="{{ url_for('static', filename='imagens/adluc_.png') }}" alt="Logo AdLuc" height="100">
-        </div>
-        <nav>
-            <a href="{{ url_for('pagina_inicial') }}">Início</a>
-            <a href="{{ url_for('pagina_vagas') }}">Vagas</a>
+<body class="light">
+<!-- HEADER -->
 
-            {% if not session.get("utilizador_id") %}
-                <a href="{{ url_for('pagina_login') }}">Login</a>
-                <a href="{{ url_for('pagina_registo') }}">Registar</a>
-            {% endif %}
 
-            {% if session.get("tipo") == "empresa" %}
-                <a href="{{ url_for('pagina_empresa') }}">Dashboard</a>
-                <a href="{{ url_for('publicar_vaga') }}">Publicar Vaga</a>
-                <a href="{{ url_for('gerir_candidaturas') }}">Gerir Candidaturas</a>
-            {% elif session.get("tipo") == "admin" %}
-                <a href="{{ url_for('pagina_admin') }}">Administração</a>
-            {% endif %}
+<header class="site-header">
+  <div class="logo">
+      <a href="{{ url_for('pagina_inicial') }}" style="text-decoration: none; color:inherit;">
+        <span class="logo-ad">ad</span><span class="logo-luc">luc</span>
+      </a>
+  </div>
 
-            {% if session.get("utilizador_id") %}
-                <span>{{ session.get("nome") }} ({{ session.get("tipo") }})</span>
-                <a href="{{ url_for('logout') }}">Logout</a>
-            {% endif %}
-        </nav>
-    </header>
+  <button class="hamburger" onclick="toggleMenu()">☰</button>
 
-    <!-- CONTEÚDO PRINCIPAL -->
-    <main>
-        {% block conteudo %}{% endblock %}
-    </main>
+<nav class="nav-links" id="nav-menu">
+    <a href="{{ url_for('pagina_vagas') }}">Oportunidades & Vagas</a>
+    <span> | </span>
+    <a href="{{ url_for('pagina_estudante') if session.get('tipo') == 'estudante' else '#' }}">Área do Estudante</a>
+    <span> | </span>
+    <a href="{{ url_for('pagina_empresa') if session.get('tipo') == 'empresa' else '#' }}">Área do Empregador & Empresas</a>
+     <span> | </span>
+    <a href="{{ url_for('pagina_conteudos') }}">Portal de Notícias & Dicas</a>
+</nav>
 
-    <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2025 AdLuc - Todos os direitos reservados.</p>
-    </footer>
 
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <div class="nav-buttons">
+    {% if session.get('utilizador_id') %}
+      <span class="user-info">Olá, {{ session.get('nome') }} ({{ session.get('tipo') }})</span>
+      <a href="{{ url_for('logout') }}" class="btn btn-outline">Logout</a>
+    {% else %}
+      <a href="{{ url_for('login') }}" class="btn btn-outline">Iniciar sessão</a>
+      <a href="{{ url_for('registo') }}" class="btn btn-azul">Criar conta</a>
+    {% endif %}
+
+    <!-- button class="btn btn-darkmode" onclick="toggleDarkMode()">🌙</button-->
+  </div>
+</header>
+
+
+
+
+
+
+
+<!-- CONTEÚDO -->
+<main>
+  {% block conteudo %}{% endblock %}
+</main>
+
+<!-- FOOTER -->
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-columns">
+    <div class="footer-col">
+      <h3 class="footer-logo">adluc</h3>
+      <a href="#">Sobre a adluc</a>
+      <a href="#">Contacto</a>
+      <a href="#">Termos e condições</a>
+    </div>
+    <div class="footer-col">
+      <h3>Estudantes</h3>
+      <a href="{{ url_for('pagina_noticias') }}">Notícias</a>
+      <a href="{{ url_for('pagina_dicas') }}">Dicas</a>
+    </div>
+    <div class="footer-col">
+      <h3>Empregadores</h3>
+      <a href="#">Razões para usar a adluc</a>
+      <a href="#">Preços e serviços</a>
+    </div>
+    <div class="footer-col">
+      <h3>Mais recentes</h3>
+      {% for pub in publicacoes_recentes %}
+        <a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}">
+          {{ pub.titulo[:40] }}...
+        </a>
+      {% else %}
+        <p style="color:#bbb;font-size:14px;">Sem publicações</p>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © adluc 2025 All rights reserved • Made in Portugal.
+  </div>
+</footer>
+
+
+
+
+
+
+
 </body>
 </html>
-

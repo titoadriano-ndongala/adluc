@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h2>Gestão de Notícias & Dicas</h2>
+<a href="{{ url_for('publicar_conteudo') }}" class="btn btn-azul">➕ Nova Publicação</a>
+
+<section class="vagas-lista" style="margin-top:20px;">
+  {% for pub in publicacoes %}
+    <div class="card vaga-card card-link-wrapper">
+      <a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}" class="card-link">
+        <h3>{{ pub.titulo }}</h3>
+        <p><b>{{ pub.tipo|capitalize }}</b> | {{ pub.data_hora.strftime("%d/%m/%Y %H:%M") }}</p>
+        <p>{{ pub.conteudo[:120] }}...</p>
+      </a>
+      <div class="card-actions">
+        <a href="{{ url_for('editar_publicacao', pub_id=pub.id) }}" class="btn btn-primario">✏Editar</a>
+        <form method="POST" action="{{ url_for('remover_publicacao', pub_id=pub.id) }}" onsubmit="return confirmarRemocao('Remover esta publicação?')">
+          <button type="submit" class="btn btn-perigo">🗑 Remover</button>
+        </form>
+      </div>
+    </div>
+  {% else %}
+    <p>Nenhuma publicação encontrada.</p>
+  {% endfor %}
+</section>
+{% endblock %}

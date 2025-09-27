@@ -1,21 +1,23 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
-<h2>As Minhas Vagas</h2>
+<h2>Minhas Vagas</h2>
 
-<ul>
-    {% for vaga in vagas %}
-        <li>
-            <b>{{ vaga.titulo }}</b> - {{ vaga.cidade }} ({{ vaga.tipo }})<br>
-            <i>Categoria:</i> {{ vaga.categoria }}<br>
-            <a href="{{ url_for('detalhes_vaga', vaga_id=vaga.id) }}">Ver detalhes</a> |
-            <a href="{{ url_for('editar_vaga', vaga_id=vaga.id) }}">Editar</a>
-            <form method="POST" action="{{ url_for('remover_vaga', vaga_id=vaga.id) }}" style="display:inline;">
-                <button type="submit" onclick="return confirm('Tens a certeza que queres remover esta vaga?')">Remover</button>
-            </form>
-        </li>
-    {% else %}
-        <p>Não publicaste nenhuma vaga ainda.</p>
-    {% endfor %}
-</ul>
+<section class="vagas-lista">
+  {% for vaga in vagas %}
+    <div class="card vaga-card card-link-wrapper">
+      <a href="{{ url_for('editar_vaga', vaga_id=vaga.id) }}" class="card-link">
+        <h3>{{ vaga.titulo }}</h3>
+        <p>{{ vaga.descricao[:120] }}...</p>
+      </a>
+      <div class="card-actions">
+        <a href="{{ url_for('editar_vaga', vaga_id=vaga.id) }}" class="btn btn-primario">✏️ Editar</a>
+        <form method="POST" action="{{ url_for('remover_vaga', vaga_id=vaga.id) }}" onsubmit="return confirmarRemocao('Remover esta vaga?')">
+          <button type="submit" class="btn btn-perigo">🗑 Remover</button>
+        </form>
+      </div>
+    </div>
+  {% else %}
+    <p>Sem vagas.</p>
+  {% endfor %}
+</section>
 {% endblock %}

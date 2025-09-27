@@ -1,19 +1,23 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
-<h2>Login</h2>
-{% if erro %}
-    <p style="color:red;">{{ erro }}</p>
-{% endif %}
-<form method="POST" action="/login">
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" required><br><br>
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>🔐 Iniciar sessão</h2>
+    <p class="subtexto">Bem-vindo de volta à <b>adluc</b></p>
 
-    <label for="senha">Senha:</label><br>
-    <input type="password" id="senha" name="senha" required><br><br>
+    <form method="POST" class="auth-form">
+      {% if erro %}<div class="alerta alerta-erro">{{ erro }}</div>{% endif %}
 
-    <button type="submit">Entrar</button>
-</form>
-<p>Ainda não tens conta? <a href="{{ url_for('pagina_registo') }}">Regista-te aqui</a></p>
+      <label>Email</label>
+      <input type="email" name="email" placeholder="exemplo@email.com" required>
+
+      <label>Senha</label>
+      <input type="password" name="senha" placeholder="••••••••" required>
+
+      <button type="submit" class="btn btn-azul full">Entrar</button>
+    </form>
+
+    <p class="auth-footer">Ainda não tem conta? <a href="{{ url_for('registo') }}">Criar conta</a></p>
+  </div>
+</div>
 {% endblock %}
-

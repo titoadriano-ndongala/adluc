@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div class="conteudo-com-sidebar">
+  <div class="conteudo-principal">
+    <h2>📰 Notícias</h2>
+    <div class="news-grid">
+      {% for pub in publicacoes %}
+        <a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}" class="news-card">
+          {% if pub.foto %}
+            <img src="{{ url_for('download_cv', filename=pub.foto) }}" alt="{{ pub.titulo }}">
+          {% endif %}
+          <div class="news-content">
+            <h3>{{ pub.titulo }}</h3>
+            <p class="meta">{{ pub.autor.nome }} • {{ pub.data_hora.strftime("%d/%m/%Y") }}</p>
+            <p>{{ pub.conteudo[:100] }}...</p>
+          </div>
+        </a>
+      {% else %}
+        <p>Sem notícias disponíveis.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-bloco">
+      <h3>🆕 Mais recentes</h3>
+      <ul>
+        {% for pub in publicacoes_recentes %}
+          <li><a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}">{{ pub.titulo[:50] }}...</a></li>
+        {% else %}
+          <li>Sem publicações</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="sidebar-bloco">
+      <h3>📂 Categorias</h3>
+      <ul>
+        <li><a href="{{ url_for('pagina_noticias') }}">📰 Notícias</a></li>
+        <li><a href="{{ url_for('pagina_dicas') }}">💡 Dicas</a></li>
+        <li><a href="{{ url_for('pagina_conteudos') }}">🌍 Portal</a></li>
+      </ul>
+    </div>
+  </aside>
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div class="conteudo-com-sidebar">
+  <div class="conteudo-principal">
+    <article class="news-detail">
+      <h1>{{ pub.titulo }}</h1>
+      <p class="meta">{{ pub.autor.nome }} • {{ pub.data_hora.strftime("%d/%m/%Y %H:%M") }}</p>
+      {% if pub.foto %}
+        <img src="{{ url_for('download_cv', filename=pub.foto) }}" alt="{{ pub.titulo }}" class="news-img">
+      {% endif %}
+      <div class="conteudo">
+        {{ pub.conteudo|safe }}
+      </div>
+    </article>
+
+    <!-- COMENTÁRIOS -->
+    <section class="comentarios">
+      <h3>💬 Comentários</h3>
+
+      {% if session.get("tipo") == "estudante" %}
+        <form method="POST" action="{{ url_for('comentar_publicacao', pub_id=pub.id) }}" class="comentario-form">
+          <textarea name="conteudo" rows="3" placeholder="Escreva o seu comentário..." required></textarea>
+          <button type="submit" class="btn btn-azul">Enviar</button>
+        </form>
+      {% else %}
+        <p class="alerta alerta-erro">⚠️ Apenas estudantes podem comentar.</p>
+      {% endif %}
+
+      <div class="comentarios-lista">
+        {% for coment in pub.comentarios %}
+          <div class="comentario">
+            <p class="coment-meta">
+              <b>{{ coment.autor.nome }}</b> • {{ coment.data_hora.strftime("%d/%m/%Y %H:%M") }}
+            </p>
+            <p>{{ coment.conteudo }}</p>
+            {% if session.get("tipo") == "admin" %}
+              <form method="POST" action="{{ url_for('remover_comentario', coment_id=coment.id) }}" onsubmit="return confirmarRemocao('Remover comentário?')">
+                <button type="submit" class="btn btn-perigo btn-sm">🗑 Remover</button>
+              </form>
+            {% endif %}
+          </div>
+        {% else %}
+          <p>Sem comentários ainda. Seja o primeiro!</p>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-bloco">
+      <h3>🆕 Mais recentes</h3>
+      <ul>
+        {% for pub in publicacoes_recentes %}
+          <li><a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}">{{ pub.titulo[:50] }}...</a></li>
+        {% else %}
+          <li>Sem publicações</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="sidebar-bloco">
+      <h3>📂 Categorias</h3>
+      <ul>
+        <li><a href="{{ url_for('pagina_noticias') }}">📰 Notícias</a></li>
+        <li><a href="{{ url_for('pagina_dicas') }}">💡 Dicas</a></li>
+        <li><a href="{{ url_for('pagina_conteudos') }}">🌍 Portal</a></li>
+      </ul>
+    </div>
+  </aside>
+</div>
+{% endblock %}

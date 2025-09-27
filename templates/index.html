@@ -1,44 +1,97 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
+<!-- HERO SECTION -->
 <section class="hero">
-    <img src="{{ url_for('static', filename='imagens/adluc_.png') }}" alt="Logo AdLuc" class="hero-logo">
-    <h2>Student Job Site</h2>
-    <p>Encontra o teu futuro: empregos, estágios e bolsas feitos para estudantes.</p>
-    <a href="{{ url_for('pagina_vagas') }}" class="btn btn-primario">Explorar Vagas</a>
-</section>
-
-<section class="ofertas">
-    <h3>Últimas Vagas Internas</h3>
-    <div class="grid grid-3">
-        {% for vaga in vagas_internas %}
-            <div class="card vaga-card">
-                <h4>{{ vaga.titulo }}</h4>
-                <p>{{ vaga.descricao[:100] }}...</p>
-                <a href="{{ url_for('detalhes_vaga', vaga_id=vaga.id) }}" class="btn btn-primario">Ver detalhes</a>
-            </div>
-        {% else %}
-            <p>Nenhuma vaga interna disponível.</p>
-        {% endfor %}
+  <div class="hero-left">
+    <h1>Estudar abre portas, <br> mas é aqui que encontras a chave para o sucesso.</h1>
+    <p class="subtitulo">adluc - a primeira plataforma de emprego dedicada para os estudantes.</p>
+    <div class="cta-links">
+      <a href="{{ url_for('registo') }}" class="link-azul">Faça login para acessar a Área dos estudantes ou dos empregadores →</a>
     </div>
+  </div>
+  <div class="hero-right">
+
+      <div class="imagem-placeholder">
+          <img src="{{ url_for('static', filename='imagens/estudantes.jpg') }}"
+               alt="estudantes">
+      </div>
+
+
+
+  </div>
 </section>
 
-
+<!-- VAGAS INTERNAS -->
+<section class="ofertas">
+  <h2>Últimas Vagas Internas</h2>
+  <div class="vagas-carousel">
+    {% for vaga in vagas_internas %}
+      <a href="{{ url_for('detalhes_vaga', vaga_id=vaga.id) }}" class="card vaga-card card-link">
+        <span class="badge badge-verde">Vaga Interna</span>
+        <h3>{{ vaga.titulo }}</h3>
+        <p>{{ vaga.descricao[:120] }}...</p>
+      </a>
+    {% else %}
+      <p>Nenhuma vaga interna disponível.</p>
+    {% endfor %}
+  </div>
+</section>
 
 <!-- VAGAS EXTERNAS -->
 <section class="ofertas">
-    <h3>Últimas Vagas Externas (Net-Empregos)</h3>
-    <div class="grid grid-3">
-        {% for vaga in vagas_externas %}
-            <div class="card vaga-card">
-                <h4>{{ vaga.titulo }}</h4>
-                <p>{{ vaga.descricao[:100] }}...</p>
-                <a href="{{ vaga.link_externo }}" target="_blank" class="btn btn-primario">Abrir site</a>
-            </div>
-        {% else %}
-            <p>Nenhuma vaga externa encontrada.</p>
-        {% endfor %}
-    </div>
+  <h2>Notícias & Oportunidades Externas</h2>
+  <div class="vagas-carousel">
+    {% for vaga in vagas_externas %}
+      <a href="{{ vaga.link_externo }}" target="_blank" class="card vaga-card card-link">
+        <span class="badge badge-azul">Vaga Externa</span>
+        <h3>{{ vaga.titulo }}</h3>
+        <p>{{ vaga.descricao[:120] }}...</p>
+      </a>
+    {% else %}
+      <p>Nenhuma notícia e oportunidade externa encontrada.</p>
+    {% endfor %}
+  </div>
 </section>
 
+<!-- NOTÍCIAS -->
+<section class="ofertas">
+  <h2>Notícias adluc</h2>
+  <div class="news-carousel">
+    {% for pub in noticias %}
+      <a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}" class="news-card">
+        {% if pub.foto %}
+          <img src="{{ url_for('download_cv', filename=pub.foto) }}" alt="{{ pub.titulo }}">
+        {% endif %}
+        <div class="news-content">
+          <h3>{{ pub.titulo }}</h3>
+          <p class="meta">{{ pub.autor.nome }} • {{ pub.data_hora.strftime("%d/%m/%Y") }}</p>
+          <p>{{ pub.conteudo[:100] }}...</p>
+        </div>
+      </a>
+    {% else %}
+      <p>Sem notícias disponíveis.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- DICAS -->
+<section class="ofertas">
+  <h2>Últimas Dicas</h2>
+  <div class="news-carousel">
+    {% for pub in dicas %}
+      <a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}" class="news-card">
+        {% if pub.foto %}
+          <img src="{{ url_for('download_cv', filename=pub.foto) }}" alt="{{ pub.titulo }}">
+        {% endif %}
+        <div class="news-content">
+          <h3>{{ pub.titulo }}</h3>
+          <p class="meta">{{ pub.autor.nome }} • {{ pub.data_hora.strftime("%d/%m/%Y") }}</p>
+          <p>{{ pub.conteudo[:100] }}...</p>
+        </div>
+      </a>
+    {% else %}
+      <p>Sem dicas disponíveis.</p>
+    {% endfor %}
+  </div>
+</section>
 {% endblock %}

@@ -1,27 +1,77 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
-<h2>Registo</h2>
-{% if erro %}
-    <p style="color:red;">{{ erro }}</p>
-{% endif %}
-<form method="POST" action="/registo">
-    <label for="nome">Nome:</label>
-    <input type="text" id="nome" name="nome" required>
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Criar Conta</h2>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
+    {% if erro %}<div class="alerta alerta-erro">{{ erro }}</div>{% endif %}
 
-    <label for="senha">Senha:</label>
-    <input type="password" id="senha" name="senha" required>
+    <form method="POST" enctype="multipart/form-data" class="auth-form">
+      <label>Nome</label>
+      <input type="text" name="nome" required>
 
-    <label for="tipo">Sou:</label>
-    <select id="tipo" name="tipo" required>
+      <label>Email</label>
+      <input type="email" name="email" required>
+
+      <label>Senha</label>
+      <input type="password" name="senha" required>
+
+      <label>Tipo de Utilizador</label>
+      <select name="tipo" id="tipo-utilizador" onchange="mostrarCamposEmpresa()" required>
         <option value="estudante">Estudante</option>
-        <option value="empresa">Empresa</option>
-    </select>
+        <option value="empresa">Empresa/Empregador</option>
+        <option value="admin">Admin</option>
+      </select>
 
-    <button type="submit">Criar Conta</button>
-</form>
-<p>Já tens conta? <a href="{{ url_for('pagina_login') }}">Faz login aqui</a></p>
+      <!-- CAMPOS EXTRAS PARA EMPRESA -->
+      <div id="campos-empresa" style="display:none;margin-top:15px;">
+        <label>NIF da Empresa</label>
+        <input type="text" name="nif" placeholder="Ex.: 5xxxxxxx">
+
+        <label>Nome da Empresa</label>
+        <input type="text" name="nome_empresa">
+
+        <label>Código Postal</label>
+        <input type="text" name="codigo_postal">
+
+        <label>Distrito</label>
+        <select name="distrito">
+          <option value="">-- Selecione --</option>
+          <option>Lisboa</option>
+          <option>Porto</option>
+          <option>Setúbal</option>
+          <option>Braga</option>
+          <option>Aveiro</option>
+          <option>Coimbra</option>
+          <option>Faro</option>
+          <option>Leiria</option>
+          <option>Santarém</option>
+          <option>Viana do Castelo</option>
+          <option>Vila Real</option>
+          <option>Viseu</option>
+          <option>Madeira</option>
+          <option>Açores</option>
+        </select>
+
+        <label>Email da Empresa</label>
+        <input type="email" name="email_empresa">
+
+        <label>Telefone</label>
+        <input type="text" name="telefone">
+
+        <label>Logotipo (JPG/PNG)</label>
+        <input type="file" name="logo_empresa" accept=".jpg,.jpeg,.png">
+      </div>
+
+      <button type="submit" class="btn btn-azul full">Criar Conta</button>
+    </form>
+  </div>
+</div>
+
+<script>
+function mostrarCamposEmpresa() {
+  const tipo = document.getElementById("tipo-utilizador").value;
+  document.getElementById("campos-empresa").style.display = (tipo === "empresa") ? "block" : "none";
+}
+</script>
 {% endblock %}

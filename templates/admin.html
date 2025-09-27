@@ -1,11 +1,38 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
-<h2>Painel de Administração</h2>
-<p>Bem-vindo {{ session.get("nome") }}! Aqui podes gerir:</p>
-<ul>
-    <li><a href="#">Utilizadores</a></li>
-    <li><a href="#">Vagas</a></li>
-    <li><a href="#">Conteúdos (notícias, dicas)</a></li>
-</ul>
+<div class="admin-layout">
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar">
+    <h2 class="sidebar-logo">⚙️ Admin</h2>
+    <nav>
+      <a href="{{ url_for('pagina_perfil_admin') }}">👤 Meu Perfil</a>
+      <a href="{{ url_for('gestao_publicacoes') }}">📰 Notícias & Dicas</a>
+      <a href="{{ url_for('publicar_conteudo') }}">➕ Nova Publicação</a>
+      <a href="#">📊 Relatórios</a>
+      <a href="#">⚡ Configurações</a>
+      <a href="#">👥 Gerir Utilizadores</a>
+    </nav>
+  </aside>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div class="admin-conteudo">
+    <h1>Bem-vindo, {{ session.get('nome') }}</h1>
+    <p>Selecione uma opção no menu à esquerda.</p>
+
+    <div class="dashboard-cards">
+      <div class="card dashboard-card">
+        <h3>👥 Utilizadores</h3>
+        <p>Gerir contas registadas.</p>
+      </div>
+      <div class="card dashboard-card">
+        <h3>📰 Publicações</h3>
+        <p>Criar e editar notícias/dicas.</p>
+      </div>
+      <div class="card dashboard-card">
+        <h3>📊 Relatórios</h3>
+        <p>Acompanhe métricas da plataforma.</p>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

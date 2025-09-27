@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Perfil da Empresa</h2>
+    <p class="subtexto">Atualize os dados da sua empresa e o logotipo</p>
+
+    {% if sucesso %}<div class="alerta alerta-sucesso">Perfil atualizado com sucesso!</div>{% endif %}
+    {% if erro %}<div class="alerta alerta-erro">{{ erro }}</div>{% endif %}
+
+    <form method="POST" enctype="multipart/form-data" class="auth-form">
+      <label>Nome da Empresa</label>
+      <input type="text" name="nome" value="{{ empresa.nome }}" required>
+
+      <label>Email</label>
+      <input type="email" name="email" value="{{ empresa.email }}" required>
+
+      <label>Logotipo</label>
+      {% if empresa.logo_empresa %}
+        <p class="cv-info">📷 <a href="{{ url_for('download_cv', filename=empresa.logo_empresa) }}" target="_blank">{{ empresa.logo_empresa }}</a></p>
+        <img src="{{ url_for('download_cv', filename=empresa.logo_empresa) }}" alt="Logotipo" style="max-width:150px;margin-bottom:10px;">
+      {% else %}
+        <p class="cv-info">Nenhum logotipo carregado</p>
+      {% endif %}
+      <input type="file" name="logo_empresa" accept=".png,.jpg,.jpeg">
+
+      <button type="submit" class="btn btn-azul full">Guardar alterações</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

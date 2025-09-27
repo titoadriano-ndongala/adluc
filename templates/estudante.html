@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h2>🎓 Área do Estudante</h2>
+
+<div class="dashboard-grid">
+  <a href="{{ url_for('pagina_vagas') }}" class="dashboard-tile">
+    <div class="icon">🔍</div>
+    <h3>Procurar Vagas</h3>
+    <p>Veja oportunidades internas e externas.</p>
+  </a>
+  <a href="{{ url_for('pagina_favoritos') }}" class="dashboard-tile">
+    <div class="icon">⭐</div>
+    <h3>Vagas Favoritas</h3>
+    <p>Consulte e organize as vagas guardadas.</p>
+  </a>
+  <a href="{{ url_for('minhas_candidaturas') }}" class="dashboard-tile">
+    <div class="icon">📩</div>
+    <h3>Minhas Candidaturas</h3>
+    <p>Acompanhe todas as candidaturas enviadas.</p>
+  </a>
+  <a href="#" class="dashboard-tile">
+    <div class="icon">👤</div>
+    <h3>Meu Perfil</h3>
+    <p>Atualize informações pessoais e CV.</p>
+  </a>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Publicar Conteúdo</h2>
+    <form method="POST" enctype="multipart/form-data" class="auth-form">
+      <label>Título</label>
+      <input type="text" name="titulo" required>
+
+      <label>Tipo</label>
+      <select name="tipo" required>
+        <option value="noticia">Notícia</option>
+        <option value="dica">Dica</option>
+      </select>
+
+      <label>Foto</label>
+      <input type="file" name="foto" accept=".jpg,.jpeg,.png">
+
+      <label>Conteúdo</label>
+      <textarea name="conteudo" rows="6" required></textarea>
+
+      <button type="submit" class="btn btn-azul full">Publicar</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

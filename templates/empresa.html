@@ -1,21 +1,22 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
 <h2>Área da Empresa</h2>
-<p>Bem-vindo {{ session.get("nome") }}!</p>
 
-<div class="dashboard-empresa grid grid-3">
-    <div class="card">
-        <h3><a href="{{ url_for('publicar_vaga') }}">Publicar Vaga</a></h3>
-        <p>Cria uma nova oferta de emprego, estágio ou bolsa.</p>
-    </div>
-    <div class="card">
-        <h3><a href="{{ url_for('minhas_vagas') }}">Minhas Vagas</a></h3>
-        <p>Consulta e edita as vagas que publicaste.</p>
-    </div>
-    <div class="card">
-        <h3><a href="{{ url_for('gerir_candidaturas') }}">Gerir Candidaturas</a></h3>
-        <p>Vê quem se candidatou às tuas vagas e baixa CVs.</p>
-    </div>
+<div class="dashboard-grid">
+  <a href="{{ url_for('publicar_vaga') }}" class="dashboard-tile">
+    <div class="icon">📌</div>
+    <h3>Publicar Vaga</h3>
+    <p>Crie uma nova oportunidade de emprego.</p>
+  </a>
+  <a href="{{ url_for('minhas_vagas') }}" class="dashboard-tile">
+    <div class="icon">📋</div>
+    <h3>Minhas Vagas</h3>
+    <p>Veja e edite as vagas que publicou.</p>
+  </a>
+  <a href="{{ url_for('gerir_candidaturas') }}" class="dashboard-tile">
+    <div class="icon">📂</div>
+    <h3>Gerir Candidaturas</h3>
+    <p>Analise os candidatos e baixe CVs.</p>
+  </a>
 </div>
 {% endblock %}

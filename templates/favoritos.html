@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h2>Oportunidades Guardadas</h2>
+
+<section class="vagas-lista">
+  {% for fav in favoritos %}
+    <a
+      href="{% if fav.vaga.externa %}{{ fav.vaga.link_externo }}{% else %}{{ url_for('detalhes_vaga', vaga_id=fav.vaga.id) }}{% endif %}"
+      {% if fav.vaga.externa %}target="_blank"{% endif %}
+      class="card vaga-card card-link"
+    >
+      <div class="linha-topo">
+        <span class="badge {% if fav.vaga.externa %}badge-azul{% else %}badge-verde{% endif %}">
+          {% if fav.vaga.externa %}Vaga Externa{% else %}Vaga Interna{% endif %}
+        </span>
+      </div>
+      <h3>{{ fav.vaga.titulo }}</h3>
+      <p>{{ fav.vaga.descricao[:140] }}...</p>
+    </a>
+  {% else %}
+    <p>Não tens vagas guardadas.</p>
+  {% endfor %}
+</section>
+{% endblock %}

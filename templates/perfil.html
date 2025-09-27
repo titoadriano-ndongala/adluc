@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>👤 Meu Perfil</h2>
+    <p class="subtexto">Edite os seus dados e atualize o CV principal</p>
+
+    {% if sucesso %}<div class="alerta alerta-sucesso">Perfil atualizado com sucesso!</div>{% endif %}
+    {% if erro %}<div class="alerta alerta-erro">{{ erro }}</div>{% endif %}
+
+    <form method="POST" enctype="multipart/form-data" class="auth-form">
+      <label>Nome</label>
+      <input type="text" name="nome" value="{{ estudante.nome }}" required>
+
+      <label>Email</label>
+      <input type="email" name="email" value="{{ estudante.email }}" required>
+
+      <label>CV Principal</label>
+      {% if estudante.cv_principal %}
+        <p class="cv-info">📎 <a href="{{ url_for('download_cv', filename=estudante.cv_principal) }}" target="_blank">{{ estudante.cv_principal }}</a></p>
+      {% else %}
+        <p class="cv-info">Nenhum CV carregado</p>
+      {% endif %}
+      <input type="file" name="cv_principal" accept=".pdf,.doc,.docx">
+
+      <button type="submit" class="btn btn-azul full">Guardar alterações</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

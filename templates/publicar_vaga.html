@@ -1,14 +1,20 @@
 {% extends "base.html" %}
-
 {% block conteudo %}
-<h2>Publicar Nova Vaga</h2>
-<form method="POST">
-    <label for="titulo">Nome da Vaga:</label>
-    <input type="text" id="titulo" name="titulo" required>
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Publicar Nova Vaga</h2>
 
-    <label for="categoria">Categoria:</label>
-    <select id="categoria" name="categoria" required>
-        <option value="">-- Escolher --</option>
+    {% if erro %}<div class="alerta alerta-erro">{{ erro }}</div>{% endif %}
+    {% if sucesso %}<div class="alerta alerta-sucesso">Vaga publicada com sucesso!</div>{% endif %}
+
+    <form method="POST" class="auth-form">
+
+      <label>Título da Vaga</label>
+      <input type="text" name="titulo" required>
+
+      <label>Categoria</label>
+      <select name="categoria" required>
+        <option value="">-- Selecione uma categoria --</option>
         <option>Administração / Secretariado</option>
         <option>Agricultura / Florestas / Pescas</option>
         <option>Arquitectura / Design</option>
@@ -18,35 +24,67 @@
         <option>Call Center / Help Desk</option>
         <option>Comercial / Vendas</option>
         <option>Comunicação Social / Media</option>
+        <option>Conservação / Manutenção / Técnica</option>
         <option>Construção Civil</option>
         <option>Contabilidade / Finanças</option>
+        <option>Desporto / Ginásios</option>
+        <option>Direito / Justiça</option>
         <option>Educação / Formação</option>
+        <option>Engenharia (Ambiente)</option>
         <option>Engenharia (Civil)</option>
-        <option>Engenharia (Informática / Programação)</option>
+        <option>Engenharia (Eletrotécnica)</option>
+        <option>Engenharia (Mecânica)</option>
+        <option>Engenharia (Química / Biologia)</option>
+        <option>Farmácia / Biotecnologia</option>
         <option>Gestão de Empresas / Economia</option>
+        <option>Gestão RH</option>
         <option>Hotelaria / Turismo</option>
+        <option>Imobiliário</option>
+        <option>Indústria / Produção</option>
+        <option>Informática (Análise de Sistemas)</option>
+        <option>Informática (Formação)</option>
+        <option>Informática (Gestão de Redes)</option>
+        <option>Informática (Internet)</option>
+        <option>Informática (Multimédia)</option>
+        <option>Informática (Programação)</option>
+        <option>Informática (Técnico de Hardware)</option>
+        <option>Informática (Comercial / Gestor de Conta)</option>
+        <option>Limpezas / Domésticas</option>
+        <option>Lojas / Comércio / Balcão</option>
+        <option>Publicidade / Marketing</option>
+        <option>Relações Públicas</option>
+        <option>Restauração / Bares / Pastelarias</option>
         <option>Saúde / Medicina / Enfermagem</option>
+        <option>Serviços Sociais</option>
+        <option>Serviços Técnicos</option>
+        <option>Telecomunicações</option>
         <option>Transportes / Logística</option>
-        <!-- (podes expandir com todas as restantes categorias da lista) -->
-    </select>
+      </select>
 
-    <label for="horario">Tipo de Horário:</label>
-    <select id="horario" name="horario">
-        <option value="full-time">Full-time</option>
-        <option value="part-time">Part-time</option>
-        <option value="remoto">Remoto</option>
-    </select>
+      <label>Horário</label>
+      <select name="horario" required>
+        <option value="">-- Selecione --</option>
+        <option>Full-time</option>
+        <option>Part-time</option>
+        <option>Remoto</option>
+      </select>
 
-    <label for="tipo">Tipo de Oportunidade:</label>
-    <select id="tipo" name="tipo">
-        <option value="emprego">Emprego</option>
-        <option value="estagio">Estágio</option>
-        <option value="bolsa">Bolsa</option>
-    </select>
+      <label>Tipo de Oportunidade</label>
+      <select name="tipo" required>
+        <option value="">-- Selecione --</option>
+        <option>Emprego</option>
+        <option>Estágio</option>
+        <option>Bolsa</option>
+      </select>
 
-    <label for="descricao">Detalhes da Vaga:</label>
-    <textarea id="descricao" name="descricao" rows="5" required></textarea>
+      <label>Localização (Cidade)</label>
+      <input type="text" name="cidade" placeholder="Ex.: Lisboa" required>
 
-    <button type="submit">Publicar</button>
-</form>
+      <label>Detalhes da Vaga</label>
+      <textarea name="descricao" rows="6" required></textarea>
+
+      <button type="submit" class="btn btn-azul full">Publicar</button>
+    </form>
+  </div>
+</div>
 {% endblock %}
