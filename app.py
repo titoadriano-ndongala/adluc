@@ -21,7 +21,14 @@ BASE_DIR = os.path.dirname(__file__)
 os.makedirs(os.path.join(BASE_DIR, "baseDados"), exist_ok=True)
 os.makedirs(os.path.join(BASE_DIR, "uploads"), exist_ok=True)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{os.path.join(BASE_DIR,'baseDados','adluc.db')}"
+#app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{os.path.join(BASE_DIR,'baseDados','adluc.db')}"
+DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///" + os.path.join(BASE_DIR,"baseDados","adluc.db"))
+app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL.replace("postgres://", "postgresql://")
+
+
+
+
+
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["UPLOAD_FOLDER"] = os.path.join(BASE_DIR, "uploads")
 app.config["MAX_CONTENT_LENGTH"] = 2 * 1024 * 1024  # 2MB
@@ -737,12 +744,14 @@ def pagina_precos():
 
 
 
+#postgresql://adluc_db_user:gEjfLb67nwshZr0j4dLHnjNyXP2FIKwH@dpg-d3cpfnqdbo4c73edafd0-a.oregon-postgres.render.com/adluc_db
 
 
 
+#postgresql://adluc_db_user:gEjfLb67nwshZr0j4dLHnjNyXP2FIKwH@dpg-d3cpfnqdbo4c73edafd0-a/adluc_db
 
 
-
+#psql postgresql://adluc_db_user:gEjfLb67nwshZr0j4dLHnjNyXP2FIKwH@dpg-d3cpfnqdbo4c73edafd0-a/adluc_db
 
 
 
