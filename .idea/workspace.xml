@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ba04444-fe45-46c5-8664-10e27ad62358" name="Changes" comment="Projecto IEFP Penultima ALTERAÇÃO 2">
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-    </list>
+    <list default="true" id="8ba04444-fe45-46c5-8664-10e27ad62358" name="Changes" comment="Projecto IEFP Penultima ALTERAÇÃO 4" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -99,7 +96,7 @@
       <workItem from="1758737416015" duration="13904000" />
       <workItem from="1758764733570" duration="3570000" />
       <workItem from="1758895222221" duration="45291000" />
-      <workItem from="1759085314585" duration="4872000" />
+      <workItem from="1759085314585" duration="6806000" />
     </task>
     <task id="LOCAL-00001" summary="Projecto Final AdLuc IEFP 3">
       <option name="closed" value="true" />
@@ -173,7 +170,31 @@
       <option name="project" value="LOCAL" />
       <updated>1759089284861</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Projecto IEFP Penultima ALTERAÇÃO 3">
+      <option name="closed" value="true" />
+      <created>1759092289198</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1759092289198</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Projecto IEFP Penultima ALTERAÇÃO 3">
+      <option name="closed" value="true" />
+      <created>1759092299901</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1759092299901</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Projecto IEFP Penultima ALTERAÇÃO 4">
+      <option name="closed" value="true" />
+      <created>1759096128692</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1759096128692</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -195,12 +216,14 @@
     <MESSAGE value="Projecto Final AdLuc IEFP 6" />
     <MESSAGE value="Projecto IEFP Penultima ALTERAÇÃO" />
     <MESSAGE value="Projecto IEFP Penultima ALTERAÇÃO 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="Projecto IEFP Penultima ALTERAÇÃO 2" />
+    <MESSAGE value="Projecto IEFP Penultima ALTERAÇÃO 3" />
+    <MESSAGE value="Projecto IEFP Penultima ALTERAÇÃO 4" />
+    <option name="LAST_COMMIT_MESSAGE" value="Projecto IEFP Penultima ALTERAÇÃO 4" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/adluc$run.coverage" NAME="run Coverage Results" MODIFIED="1758753021788" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/adluc$ingestao.coverage" NAME="ingestao Coverage Results" MODIFIED="1758745431432" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
-    <SUITE FILE_PATH="coverage/adluc$app.coverage" NAME="app Coverage Results" MODIFIED="1759092257505" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/adluc$app.coverage" NAME="app Coverage Results" MODIFIED="1759095995885" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/adluc$auth.coverage" NAME="auth Coverage Results" MODIFIED="1758744214721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/adluc$modelos.coverage" NAME="modelos Coverage Results" MODIFIED="1758803150406" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modelos" />
   </component>
