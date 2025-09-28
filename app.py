@@ -25,18 +25,18 @@ BASE_DIR = os.path.dirname(__file__)
 os.makedirs(os.path.join(BASE_DIR, "baseDados"), exist_ok=True)
 os.makedirs(os.path.join(BASE_DIR, "uploads"), exist_ok=True)
 
-#app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{os.path.join(BASE_DIR,'baseDados','adluc.db')}"
+app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{os.path.join(BASE_DIR,'baseDados','adluc.db')}"
 
 # Se existir variável DATABASE_URL no ambiente, usa-a, senão usa SQLite (local)
-DATABASE_URL = os.environ.get("DATABASE_URL", f"sqlite:///{os.path.join(BASE_DIR,'baseDados','adluc.db')}")
+#DATABASE_URL = os.environ.get("DATABASE_URL", f"sqlite:///{os.path.join(BASE_DIR,'baseDados','adluc.db')}")
 
 # Render usa postgres:// mas SQLAlchemy precisa de postgresql://
-if DATABASE_URL.startswith("postgres://"):
-    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+#if DATABASE_URL.startswith("postgres://"):
+#    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
 
-app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
+#app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
 
-migrate = Migrate(app, db)
+#migrate = Migrate(app, db)
 
 
 
@@ -757,12 +757,7 @@ def pagina_precos():
 
 
 #postgresql://adluc_db_user:gEjfLb67nwshZr0j4dLHnjNyXP2FIKwH@dpg-d3cpfnqdbo4c73edafd0-a.oregon-postgres.render.com/adluc_db
-
-
-
 #postgresql://adluc_db_user:gEjfLb67nwshZr0j4dLHnjNyXP2FIKwH@dpg-d3cpfnqdbo4c73edafd0-a/adluc_db
-
-
 #psql postgresql://adluc_db_user:gEjfLb67nwshZr0j4dLHnjNyXP2FIKwH@dpg-d3cpfnqdbo4c73edafd0-a/adluc_db
 
 
