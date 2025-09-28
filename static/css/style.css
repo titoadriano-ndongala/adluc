@@ -51,8 +51,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fbf8fb;color:#333;line-
 .card:hover{transform:translateY(-4px);box-shadow:0 6px 14px rgba(0,0,0,.12);}
 .card h3{margin-bottom:10px;}
 .badge{display:inline-block;padding:4px 8px;border-radius:12px;font-size:12px;font-weight:700;margin-bottom:8px;}
-.badge-verde{background:#28a745;color:#fff;}
-.badge-azul{background:#0d6efd;color:#fff;}
+.badge-verde{background: #6a199c;color:#fff;}
+.badge-azul{background: #2ba656;color:#fff;}
 
 /* CARDS CLICÁVEIS */
 .card-link{text-decoration:none;color:inherit;display:block;}
@@ -118,8 +118,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fbf8fb;color:#333;line-
 }
 .filtros-form input:focus,
 .filtros-form select:focus {
-  outline:none;border:1px solid #3366cc;
-  box-shadow:0 0 6px rgba(51,102,204,.3);
+  outline:none;border:1px solid #c565fa;
+  box-shadow:0 0 6px rgb(106, 25, 156);
 }
 .input-group {
   display:flex;align-items:center;
@@ -191,7 +191,7 @@ body.dark .footer-bottom {background:#0a101a;color:#888;}
 .dashboard-tile:hover {
   transform:translateY(-6px);
   box-shadow:0 6px 14px rgba(0,0,0,0.15);
-  border-color:#3366cc;
+  border-color: #6a199c;
 }
 
 /* Dark mode ajustes */
@@ -339,7 +339,7 @@ body.dark .nav-links a { color:#ddd; }
 .news-featured .meta {font-size:12px;color:#777;margin-bottom:6px;}
 .news-list {list-style:none;padding:0;}
 .news-list li {margin-bottom:8px;}
-.news-list a {text-decoration:none;color:#3366cc;font-size:14px;}
+.news-list a {text-decoration:none;color: #6a199c;font-size:14px;}
 .news-list a:hover {text-decoration:underline;}
 
 .mais-lidas {margin:40px 0;}
@@ -347,7 +347,7 @@ body.dark .nav-links a { color:#ddd; }
 .mais-lidas ul {list-style:none;padding:0;}
 .mais-lidas li {margin-bottom:10px;}
 .mais-lidas a {color:#333;text-decoration:none;}
-.mais-lidas a:hover {color:#3366cc;}
+.mais-lidas a:hover {color: #6a199c;}
 
 /* Dark mode ajustes */
 body.dark .news-featured {background:#1f1f1f;border:1px solid #333;color:#ddd;}
@@ -355,7 +355,7 @@ body.dark .news-featured .meta,
 body.dark .news-list a span.meta,
 body.dark .mais-lidas a span.meta {color:#aaa;}
 body.dark .news-list a,
-body.dark .mais-lidas a {color:#66aaff;}
+body.dark .mais-lidas a {color: #c565fa;}
 
 
 
@@ -377,7 +377,7 @@ body.dark .mais-lidas a {color:#66aaff;}
 .sidebar-bloco h3 {margin-bottom:10px;font-size:16px;font-weight:700;}
 .sidebar-bloco ul {list-style:none;padding:0;}
 .sidebar-bloco li {margin-bottom:8px;}
-.sidebar-bloco a {text-decoration:none;color:#3366cc;font-size:14px;}
+.sidebar-bloco a {text-decoration:none;color: #6a199c;font-size:14px;}
 .sidebar-bloco a:hover {text-decoration:underline;}
 
 /* DARK MODE */
@@ -439,7 +439,7 @@ body.dark .coment-meta {color:#aaa;}
 }
 
 .admin-sidebar {
-  background: #1b2947;
+  background: #2c0f3e;
   color: #fff;
   padding: 20px;
   display: flex;
@@ -464,7 +464,7 @@ body.dark .coment-meta {color:#aaa;}
   transition: all 0.2s ease;
 }
 .admin-sidebar nav a:hover {
-  background: #3366cc;
+  background: #c565fa;
   color: #fff;
 }
 
@@ -488,13 +488,13 @@ body.dark .coment-meta {color:#aaa;}
 
 /* Dark mode ajustes */
 body.dark .admin-sidebar {
-  background: #121a2f;
+  background: #2c0f3e;
 }
 body.dark .admin-sidebar nav a {
   color: #999;
 }
 body.dark .admin-sidebar nav a:hover {
-  background: #254a99;
+  background: #2c0f3e;
   color: #fff;
 }
 

@@ -1,1 +1,3 @@
-Projecto de Fim de Curso do Modulo Python
+O projeto adluc nasceu da colaboração entre Tito Adriano e Lucas Almeida, como parte do Projeto Final a ser apresentado na Unidade Curricular de Projetos do Curso de Python, ministrado pelo IEFP (Instituto de Emprego e Formação Profissional).
+
+A ideia surgiu da necessidade de criar uma plataforma moderna e eficiente que ajudasse estudantes e empresas a se conectarem no mercado de trabalho. Diferente de outros portais, a adluc procura unir ofertas internas (criadas diretamente pelas empresas ou administração) e ofertas externas (importadas por scraping, APIs e feeds RSS), garantindo um ecossistema único.

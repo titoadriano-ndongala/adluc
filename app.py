@@ -714,6 +714,38 @@ def api_vagas():
 
 
 
+@app.route("/sobre", endpoint="pagina_sobre")
+def pagina_sobre():
+    return render_template("sobre.html")
+
+@app.route("/termos", endpoint="pagina_termos")
+def pagina_termos():
+    return render_template("termos.html")
+
+@app.route("/contactos", endpoint="pagina_contactos")
+def pagina_contactos():
+    return render_template("contactos.html")
+
+@app.route("/razoes", endpoint="pagina_razoes")
+def pagina_razoes():
+    return render_template("razoes.html")
+
+@app.route("/precos", endpoint="pagina_precos")
+def pagina_precos():
+    return render_template("precos.html")
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

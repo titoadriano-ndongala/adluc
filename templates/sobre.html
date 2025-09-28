@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div style="display:grid;grid-template-columns:2fr 1fr;gap:30px;align-items:start;margin-top:30px;">
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div style="background:#fff;padding:25px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.05);">
+    <h2 style="font-size:26px;color:#6a199c;margin-bottom:15px;">Sobre a adluc</h2>
+    <p style="font-size:15px;line-height:1.7;color:#444;">
+      O projeto <b>adluc</b> nasceu da colaboração entre <b>Tito Adriano</b> e <b>Lucas Almeida</b>, 
+      como parte do <b>Projeto Final</b> a ser apresentado na Unidade Curricular de Projetos 
+      do <b>Curso de Python</b>, ministrado pelo <b>IEFP (Instituto de Emprego e Formação Profissional)</b>.
+    </p>
+
+    <p style="font-size:15px;line-height:1.7;color:#444;">
+      A ideia surgiu da necessidade de criar uma plataforma moderna e eficiente que ajudasse 
+      <b>estudantes</b> e <b>empresas</b> a se conectarem no mercado de trabalho. Diferente de outros portais, 
+      a <b>adluc</b> procura unir <b>ofertas internas</b> (criadas diretamente pelas empresas ou administração) 
+      e <b>ofertas externas</b> (importadas por scraping, APIs e feeds RSS), garantindo um <b>ecossistema único</b>.
+    </p>
+
+    <h3 style="margin-top:25px;color:#6a199c;">Razões & Diferenciais</h3>
+    <ul style="margin-left:20px;font-size:15px;line-height:1.7;color:#444;">
+      <li>Integração de múltiplas fontes de emprego e bolsas de estudo.</li>
+      <li>Plataforma pensada para ser <b>simples, moderna e acessível</b>.</li>
+      <li>Enfoque em <b>estudantes</b>, mas aberta também a empresas e administradores.</li>
+      <li>Gestão clara de candidaturas, favoritos e publicações.</li>
+      <li>Construída como <b>projeto educativo</b> e escalável para o mundo real.</li>
+    </ul>
+
+    <h3 style="margin-top:25px;color:#6a199c;">Missão</h3>
+    <p style="font-size:15px;line-height:1.7;color:#444;">
+      Conectar estudantes e empregadores através de uma plataforma digital intuitiva, 
+      oferecendo as melhores oportunidades de carreira e desenvolvimento pessoal.
+    </p>
+
+    <h3 style="margin-top:25px;color:#6a199c;">Visão</h3>
+    <p style="font-size:15px;line-height:1.7;color:#444;">
+      Ser uma referência em plataformas de ligação entre <b>estudantes</b> e <b>empresas</b>, 
+      transformando a forma como jovens talentos iniciam suas carreiras.
+    </p>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside style="background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.05);">
+    <h3 style="font-size:18px;color:#333;margin-bottom:10px;">🆕 Mais recentes</h3>
+    <ul style="list-style:none;padding:0;font-size:14px;">
+      {% for pub in publicacoes_recentes %}
+        <li style="margin-bottom:8px;">
+          <a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}" 
+             style="text-decoration:none;color:#6a199c;">{{ pub.titulo }}</a>
+        </li>
+      {% else %}
+        <li style="color:#777;">Sem publicações recentes.</li>
+      {% endfor %}
+    </ul>
+
+    <h3 style="font-size:18px;color:#333;margin:20px 0 10px;">📂 Categorias</h3>
+    <ul style="list-style:none;padding:0;font-size:14px;">
+      <li><a href="{{ url_for('pagina_vagas') }}" style="color:#6a199c;">Vagas</a></li>
+      <li><a href="{{ url_for('pagina_noticias') }}" style="color:#6a199c;">Notícias</a></li>
+      <li><a href="{{ url_for('pagina_dicas') }}" style="color:#6a199c;">Dicas</a></li>
+    </ul>
+
+    <h3 style="font-size:18px;color:#333;margin:20px 0 10px;">🌍 Portal</h3>
+    <p><a href="{{ url_for('pagina_inicial') }}" style="color:#6a199c;">Voltar à página inicial</a></p>
+  </aside>
+
+</div>
+{% endblock %}

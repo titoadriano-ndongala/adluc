@@ -62,9 +62,9 @@
   <div class="footer-columns">
     <div class="footer-col">
       <h3 class="footer-logo">adluc</h3>
-      <a href="#">Sobre a adluc</a>
-      <a href="#">Contacto</a>
-      <a href="#">Termos e condições</a>
+      <a href="{{ url_for('pagina_sobre') }}">Sobre a adluc</a>
+      <a href="{{ url_for('pagina_contactos') }}">Contacto</a>
+      <a href="{{ url_for('pagina_termos') }}">Termos e condições</a>
     </div>
     <div class="footer-col">
       <h3>Estudantes</h3>
@@ -73,8 +73,8 @@
     </div>
     <div class="footer-col">
       <h3>Empregadores</h3>
-      <a href="#">Razões para usar a adluc</a>
-      <a href="#">Preços e serviços</a>
+      <a href="{{ url_for('pagina_razoes') }}">Razões para usar a adluc</a>
+      <a href="{{ url_for('pagina_precos') }}">Preços e serviços</a>
     </div>
     <div class="footer-col">
       <h3>Mais recentes</h3>

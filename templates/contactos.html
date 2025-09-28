@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<div style="display:grid;grid-template-columns:2fr 1fr;gap:30px;align-items:start;margin-top:30px;">
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div style="background:#fff;padding:25px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.05);">
+    <h2 style="font-size:26px;color:#6a199c;margin-bottom:15px;">Contactos</h2>
+
+    <p style="font-size:15px;line-height:1.7;color:#444;">
+      Para questões gerais, sugestões ou parcerias, entre em contacto connosco através dos seguintes canais:
+    </p>
+
+    <h3 style="margin-top:25px;color:#6a199c;">Morada</h3>
+    <p style="font-size:15px;line-height:1.7;color:#444;">
+      Rua do Coval, 6<br>
+      Mafra<br>
+      Lisboa, Portugal
+    </p>
+
+    <h3 style="margin-top:25px;color:#6a199c;">Email</h3>
+    <p style="font-size:15px;line-height:1.7;color:#444;">
+      <a href="mailto:geral@adluc.com" style="color:#6a199c;">geral@adluc.com</a>
+    </p>
+
+    <h3 style="margin-top:25px;color:#6a199c;">Horário</h3>
+    <p style="font-size:15px;line-height:1.7;color:#444;">
+      Segunda a Sexta, das 9h às 18h.
+    </p>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside style="background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 6px rgba(0,0,0,.05);">
+    <h3 style="font-size:18px;color:#333;margin-bottom:10px;">🆕 Mais recentes</h3>
+    <ul style="list-style:none;padding:0;font-size:14px;">
+      {% for pub in publicacoes_recentes %}
+        <li style="margin-bottom:8px;">
+          <a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}" 
+             style="text-decoration:none;color:#6a199c;">{{ pub.titulo }}</a>
+        </li>
+      {% else %}
+        <li style="color:#777;">Sem publicações recentes.</li>
+      {% endfor %}
+    </ul>
+
+    <h3 style="font-size:18px;color:#333;margin:20px 0 10px;">📂 Categorias</h3>
+    <ul style="list-style:none;padding:0;font-size:14px;">
+      <li><a href="{{ url_for('pagina_vagas') }}" style="color:#6a199c;">Vagas</a></li>
+      <li><a href="{{ url_for('pagina_noticias') }}" style="color:#6a199c;">Notícias</a></li>
+      <li><a href="{{ url_for('pagina_dicas') }}" style="color:#6a199c;">Dicas</a></li>
+    </ul>
+
+    <h3 style="font-size:18px;color:#333;margin:20px 0 10px;">🌍 Portal</h3>
+    <p><a href="{{ url_for('pagina_inicial') }}" style="color:#6a199c;">Voltar à página inicial</a></p>
+  </aside>
+
+</div>
+{% endblock %}
