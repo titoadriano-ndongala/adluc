@@ -5,7 +5,6 @@ from datetime import datetime
 db = SQLAlchemy()
 
 
-
 class Utilizador(db.Model):
     __tablename__ = "utilizadores"
     id = db.Column(db.Integer, primary_key=True)
@@ -25,14 +24,23 @@ class Utilizador(db.Model):
     telefone = db.Column(db.String(50), nullable=True)
     logo_empresa = db.Column(db.String(200), nullable=True)
 
+    # 🔹 Relacionamentos com CASCADE
+    candidaturas = db.relationship("Candidatura", backref="estudante",
+                                   cascade="all, delete-orphan", lazy=True)
+    favoritos = db.relationship("Favorito", backref="estudante",
+                                cascade="all, delete-orphan", lazy=True)
+    vagas = db.relationship("Vaga", backref="empresa",
+                            cascade="all, delete-orphan", lazy=True)
+    publicacoes = db.relationship("Publicacao", backref="autor",
+                                  cascade="all, delete-orphan", lazy=True)
+    comentarios = db.relationship("Comentario", backref="autor",
+                                  cascade="all, delete-orphan", lazy=True)
 
     def definir_senha(self, senha):
         self.senha_hash = generate_password_hash(senha)
 
     def verificar_senha(self, senha):
         return check_password_hash(self.senha_hash, senha)
-
-
 
 
 class Vaga(db.Model):
@@ -48,12 +56,11 @@ class Vaga(db.Model):
     link_externo = db.Column(db.String(500), nullable=True)
     imagem_externa = db.Column(db.String(500), nullable=True)   # ✅ novo campo
     empresa_id = db.Column(db.Integer, db.ForeignKey("utilizadores.id"), nullable=True)
-    empresa = db.relationship("Utilizador", backref="vagas", lazy=True)
-    candidaturas = db.relationship("Candidatura", backref="vaga", cascade="all, delete-orphan")
-    favoritos = db.relationship("Favorito", backref="vaga", cascade="all, delete-orphan")
 
-
-
+    candidaturas = db.relationship("Candidatura", backref="vaga",
+                                   cascade="all, delete-orphan", lazy=True)
+    favoritos = db.relationship("Favorito", backref="vaga",
+                                cascade="all, delete-orphan", lazy=True)
 
 
 class Candidatura(db.Model):
@@ -62,15 +69,16 @@ class Candidatura(db.Model):
     estudante_id = db.Column(db.Integer, db.ForeignKey("utilizadores.id"), nullable=False)
     vaga_id = db.Column(db.Integer, db.ForeignKey("vagas.id"), nullable=False)
     ficheiro_cv = db.Column(db.String(200), nullable=False)
-    estudante = db.relationship("Utilizador", backref="candidaturas", lazy=True)
+
 
 class Favorito(db.Model):
     __tablename__ = "favoritos"
     id = db.Column(db.Integer, primary_key=True)
     estudante_id = db.Column(db.Integer, db.ForeignKey("utilizadores.id"), nullable=False)
     vaga_id = db.Column(db.Integer, db.ForeignKey("vagas.id"), nullable=False)
-    estudante = db.relationship("Utilizador", backref="favoritos", lazy=True)
-    __table_args__ = (db.UniqueConstraint('estudante_id','vaga_id', name='uq_favorito_estudante_vaga'),)
+
+    __table_args__ = (db.UniqueConstraint('estudante_id', 'vaga_id',
+                                          name='uq_favorito_estudante_vaga'),)
 
 
 class Publicacao(db.Model):
@@ -78,11 +86,11 @@ class Publicacao(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     titulo = db.Column(db.String(200), nullable=False)
     autor_id = db.Column(db.Integer, db.ForeignKey("utilizadores.id"), nullable=False)
-    autor = db.relationship("Utilizador", backref="publicacoes", lazy=True)
     data_hora = db.Column(db.DateTime, default=datetime.utcnow)
     foto = db.Column(db.String(200), nullable=True)
     conteudo = db.Column(db.Text, nullable=False)
     tipo = db.Column(db.String(20), default="noticia")  # noticia ou dica
+
 
 class Comentario(db.Model):
     __tablename__ = "comentarios"
@@ -91,7 +99,4 @@ class Comentario(db.Model):
     data_hora = db.Column(db.DateTime, default=datetime.utcnow)
 
     autor_id = db.Column(db.Integer, db.ForeignKey("utilizadores.id"), nullable=False)
-    autor = db.relationship("Utilizador", backref="comentarios", lazy=True)
-
     publicacao_id = db.Column(db.Integer, db.ForeignKey("publicacoes.id"), nullable=False)
-    publicacao = db.relationship("Publicacao", backref="comentarios", lazy=True)

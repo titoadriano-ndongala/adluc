@@ -1,46 +1,72 @@
 {% extends "base.html" %}
 {% block conteudo %}
-<div class="conteudo-com-sidebar">
-  <div class="conteudo-principal">
-    <h2>📰 Notícias</h2>
-    <div class="news-grid">
+<div style="display:grid;grid-template-columns:2fr 1fr;gap:25px;align-items:start;">
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div>
+    <h2 style="margin-bottom:20px;">📰 Notícias</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;">
       {% for pub in publicacoes %}
-        <a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}" class="news-card">
-          {% if pub.foto %}
-            <img src="{{ url_for('download_cv', filename=pub.foto) }}" alt="{{ pub.titulo }}">
-          {% endif %}
-          <div class="news-content">
-            <h3>{{ pub.titulo }}</h3>
-            <p class="meta">{{ pub.autor.nome }} • {{ pub.data_hora.strftime("%d/%m/%Y") }}</p>
-            <p>{{ pub.conteudo[:100] }}...</p>
+        <a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}"
+           style="display:block;text-decoration:none;color:inherit;">
+          <div style="background:#fff;border:1px solid #ddd;border-radius:10px;overflow:hidden;
+                      box-shadow:0 2px 6px rgba(0,0,0,.05);transition:all .3s ease;cursor:pointer;"
+               onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 8px 18px rgba(0,0,0,0.2)';"
+               onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 6px rgba(0,0,0,.05)';">
+
+            {% if pub.foto %}
+              <img src="{{ url_for('download_cv', filename=pub.foto) }}" alt="{{ pub.titulo }}"
+                   style="width:100%;height:180px;object-fit:cover;">
+            {% else %}
+              <img src="{{ url_for('static', filename='imagens/fallback_vaga.png') }}" alt="Imagem"
+                   style="width:100%;height:180px;object-fit:cover;">
+            {% endif %}
+
+            <div style="padding:15px;">
+              <h3 style="margin:0 0 10px;font-size:18px;color:#333;">{{ pub.titulo }}</h3>
+              <p style="margin:0 0 8px;font-size:13px;color:#777;">
+                {{ pub.autor.nome if pub.autor else "Admin" }} • {{ pub.data_hora.strftime("%d/%m/%Y") }}
+              </p>
+              <p style="margin:0;font-size:14px;color:#444;line-height:1.4;">
+                {{ pub.conteudo[:150] }}...
+              </p>
+            </div>
           </div>
         </a>
       {% else %}
-        <p>Sem notícias disponíveis.</p>
+        <p style="color:#777;">Sem notícias disponíveis.</p>
       {% endfor %}
     </div>
   </div>
 
   <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-bloco">
-      <h3>🆕 Mais recentes</h3>
-      <ul>
+  <aside style="background:#fff;border:1px solid #ddd;border-radius:10px;padding:20px;
+                box-shadow:0 2px 6px rgba(0,0,0,.05);height:fit-content;">
+    <div style="margin-bottom:25px;">
+      <h3 style="margin-bottom:12px;font-size:18px;color:#333;">🆕 Mais recentes</h3>
+      <ul style="list-style:none;padding:0;margin:0;">
         {% for pub in publicacoes_recentes %}
-          <li><a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}">{{ pub.titulo[:50] }}...</a></li>
+          <li style="margin-bottom:8px;">
+            <a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}"
+               style="font-size:14px;color:#3366cc;text-decoration:none;">
+              {{ pub.titulo[:60] }}...
+            </a>
+          </li>
         {% else %}
-          <li>Sem publicações</li>
+          <li style="color:#777;font-size:14px;">Sem publicações</li>
         {% endfor %}
       </ul>
     </div>
-    <div class="sidebar-bloco">
-      <h3>📂 Categorias</h3>
-      <ul>
-        <li><a href="{{ url_for('pagina_noticias') }}">📰 Notícias</a></li>
-        <li><a href="{{ url_for('pagina_dicas') }}">💡 Dicas</a></li>
-        <li><a href="{{ url_for('pagina_conteudos') }}">🌍 Portal</a></li>
+
+    <div>
+      <h3 style="margin-bottom:12px;font-size:18px;color:#333;">📂 Categorias</h3>
+      <ul style="list-style:none;padding:0;margin:0;">
+        <li style="margin-bottom:6px;"><a href="{{ url_for('pagina_noticias') }}" style="color:#3366cc;text-decoration:none;">📰 Notícias</a></li>
+        <li style="margin-bottom:6px;"><a href="{{ url_for('pagina_dicas') }}" style="color:#3366cc;text-decoration:none;">💡 Dicas</a></li>
+        <li><a href="{{ url_for('pagina_conteudos') }}" style="color:#3366cc;text-decoration:none;">🌍 Portal</a></li>
       </ul>
     </div>
   </aside>
+
 </div>
 {% endblock %}

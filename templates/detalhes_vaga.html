@@ -1,46 +1,125 @@
 {% extends "base.html" %}
 {% block conteudo %}
-<div class="card" style="max-width:800px;margin:auto;">
-  <div class="linha-topo">
-    <span class="badge {% if vaga.externa %}badge-azul{% else %}badge-verde{% endif %}">
-      {% if vaga.externa %}Vaga Externa{% else %}Vaga Interna{% endif %}
-    </span>
-    {% if session.get('tipo') == 'estudante' %}
-      <form method="POST" action="{{ url_for('favoritar', vaga_id=vaga.id) }}" class="form-star">
-        {% if fav_ids and vaga.id in fav_ids %}
-          <button class="star ativo" title="Remover dos favoritos">★</button>
-        {% else %}
-          <button class="star" title="Guardar nos favoritos">☆</button>
-        {% endif %}
-      </form>
+
+<div style="max-width:800px;margin:auto;margin-top:30px;background:#fff;padding:30px;
+            border-radius:10px;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+
+  <!-- Cabeçalho da vaga -->
+  <h2 style="margin:0 0 15px;font-size:24px;color:#333;">{{ vaga.titulo }}</h2>
+  <span style="display:inline-block;background:{% if vaga.externa %}#3366cc{% else %}#27ae60{% endif %};
+               color:#fff;padding:4px 10px;border-radius:6px;font-size:13px;font-weight:600;">
+    {% if vaga.externa %}Vaga Externa{% else %}Vaga Interna{% endif %}
+  </span>
+
+  <!-- Descrição -->
+  <p style="margin-top:20px;font-size:15px;line-height:1.7;color:#444;">
+    {{ vaga.descricao }}
+  </p>
+
+  <!-- Info adicional -->
+  <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:15px;font-size:14px;color:#555;">
+    {% if vaga.categoria %}
+      <span style="background:#f4f4f4;padding:6px 12px;border-radius:6px;">📂 {{ vaga.categoria }}</span>
+    {% endif %}
+    {% if vaga.cidade %}
+      <span style="background:#f4f4f4;padding:6px 12px;border-radius:6px;">📍 {{ vaga.cidade }}</span>
+    {% endif %}
+    {% if vaga.horario %}
+      <span style="background:#f4f4f4;padding:6px 12px;border-radius:6px;">⏰ {{ vaga.horario }}</span>
+    {% endif %}
+    {% if vaga.tipo %}
+      <span style="background:#f4f4f4;padding:6px 12px;border-radius:6px;">📑 {{ vaga.tipo }}</span>
     {% endif %}
   </div>
 
-  <h2>{{ vaga.titulo }}</h2>
-  {% if vaga.categoria %}<p><b>Categoria:</b> {{ vaga.categoria }}</p>{% endif %}
-  {% if vaga.cidade %}<p><b>Cidade:</b> {{ vaga.cidade }}</p>{% endif %}
-  {% if vaga.horario %}<p><b>Horário:</b> {{ vaga.horario }}</p>{% endif %}
-  {% if vaga.tipo %}<p><b>Tipo:</b> {{ vaga.tipo }}</p>{% endif %}
-  <p style="margin-top:10px;"><b>Descrição:</b></p>
-  <p>{{ vaga.descricao }}</p>
+  <!-- Candidatura -->
+  {% if not vaga.externa %}
+    <hr style="margin:25px 0;border:none;border-top:1px solid #eee;">
 
-  {% if vaga.externa %}
-    <p style="margin-top:15px;"><a class="btn btn-primario" href="{{ vaga.link_externo }}" target="_blank">Candidatar no site externo</a></p>
-  {% else %}
-    {% if session.get('tipo') == 'estudante' %}
-      <hr style="margin:15px 0;">
-      <h3>Candidatura</h3>
-      {% if erro_upload %}<div class="alerta alerta-erro">{{ erro_upload }}</div>{% endif %}
-      {% if sucesso %}<div class="alerta alerta-sucesso">Candidatura enviada com sucesso! 🎉</div>{% endif %}
-      <form method="POST" enctype="multipart/form-data">
-        <label>Carregar CV (PDF/DOC/DOCX, máx 2MB):</label>
-        <input type="file" name="cv" accept=".pdf,.doc,.docx" required>
-        <button class="btn btn-sucesso" type="submit">📩 Enviar candidatura</button>
-      </form>
-    {% else %}
-      <p class="alerta alerta-erro">⚠️ Faz login como <b>estudante</b> para te candidatares.</p>
+    <h3 style="font-size:18px;color:#333;margin-bottom:10px;">Enviar Candidatura</h3>
+
+    {% if erro_upload %}
+      <div style="background:#f8d7da;color:#721c24;padding:10px 15px;border-radius:6px;margin-bottom:15px;">
+        ⚠️ {{ erro_upload }}
+      </div>
     {% endif %}
+
+    {% if sucesso %}
+      <div style="background:#d4edda;color:#155724;padding:10px 15px;border-radius:6px;margin-bottom:15px;">
+        ✅ Candidatura enviada com sucesso!
+      </div>
+    {% endif %}
+
+    <form method="POST" enctype="multipart/form-data" style="display:flex;flex-direction:column;gap:15px;">
+      <input type="file" name="cv"
+             style="padding:10px;border:1px solid #ccc;border-radius:6px;font-size:14px;">
+
+      <div style="display:flex;gap:10px;">
+        <button type="submit"
+                style="flex:1;background:#6a199c;color:#fff;border:none;padding:12px;border-radius:6px;
+                       font-size:15px;font-weight:600;cursor:pointer;transition:background .3s;"
+                onmouseover="this.style.background='#2c0f3e';"
+                onmouseout="this.style.background='#882bbf';">
+          Candidatar-se
+        </button>
+
+        <a href="{{ url_for('pagina_vagas') }}"
+           style="flex:1;text-align:center;background:#777;color:#fff;padding:12px;border-radius:6px;
+                  text-decoration:none;font-weight:600;transition:background .3s;"
+           onmouseover="this.style.background='#555';"
+           onmouseout="this.style.background='#777';">
+          Voltar às Vagas
+        </a>
+      </div>
+    </form>
+  {% else %}
+    <hr style="margin:25px 0;border:none;border-top:1px solid #eee;">
+    <a href="{{ vaga.link_externo }}" target="_blank"
+       style="display:inline-block;background:#c565fa;color:#fff;padding:12px 20px;border-radius:6px;
+              font-size:15px;font-weight:600;text-decoration:none;transition:background .3s;"
+       onmouseover="this.style.background='#2c0f3e';"
+       onmouseout="this.style.background='#6a199c';">
+      🌍 Aceder à Vaga Externa
+    </a>
   {% endif %}
-  <p style="margin-top:15px;"><a href="{{ url_for('pagina_vagas') }}">⬅ Voltar</a></p>
+
 </div>
+
+
+
+
+
+{% if aviso %}
+<div id="overlay-msg" style="
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background: rgba(0,0,0,0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+">
+  <div style="background:#fff;padding:30px;max-width:500px;width:90%;
+              border-radius:10px;text-align:center;
+              box-shadow:0 4px 12px rgba(0,0,0,0.2);">
+    <h3 style="margin-bottom:15px;color:#333;">ATENÇÃO</h3>
+    <p style="font-size:15px;color:#444;line-height:1.5;">
+      {{ aviso }}
+    </p>
+    <button onclick="document.getElementById('overlay-msg').style.display='none'"
+            style="margin-top:20px;background:#3366cc;color:#fff;
+                   border:none;padding:10px 20px;border-radius:6px;
+                   cursor:pointer;font-weight:600;">
+      OK, entendi
+    </button>
+  </div>
+</div>
+{% endif %}
+
+
+
+
+
+
+
 {% endblock %}

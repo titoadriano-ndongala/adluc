@@ -3,14 +3,19 @@
 <div class="admin-layout">
   <!-- SIDEBAR -->
   <aside class="admin-sidebar">
+
+
+
+
+
     <h2 class="sidebar-logo">⚙️ Admin</h2>
     <nav>
       <a href="{{ url_for('pagina_perfil_admin') }}">👤 Meu Perfil</a>
       <a href="{{ url_for('gestao_publicacoes') }}">📰 Notícias & Dicas</a>
       <a href="{{ url_for('publicar_conteudo') }}">➕ Nova Publicação</a>
-      <a href="#">📊 Relatórios</a>
-      <a href="#">⚡ Configurações</a>
-      <a href="#">👥 Gerir Utilizadores</a>
+      <a href="{{ url_for('relatorios') }}">📊 Relatórios</a>
+      <a href="{{ url_for('pagina_configuracoes') }}">⚡ Configurações</a>
+      <a href="{{ url_for('gerir_utilizadores') }}">👥 Gerir Utilizadores</a>
     </nav>
   </aside>
 
@@ -22,17 +27,22 @@
     <div class="dashboard-cards">
       <div class="card dashboard-card">
         <h3>👥 Utilizadores</h3>
-        <p>Gerir contas registadas.</p>
+        <h5>Gerir contas registadas.</h5>
       </div>
       <div class="card dashboard-card">
         <h3>📰 Publicações</h3>
-        <p>Criar e editar notícias/dicas.</p>
+        <h5>Criar e editar notícias/dicas.</h5>
       </div>
       <div class="card dashboard-card">
         <h3>📊 Relatórios</h3>
-        <p>Acompanhe métricas da plataforma.</p>
+        <h5>Acompanhe métricas da plataforma.</h5>
       </div>
     </div>
   </div>
 </div>
 {% endblock %}
+
+
+
+
+

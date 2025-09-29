@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h2 style="margin-bottom:20px;">Relatórios — Resumo da Plataforma</h2>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
+
+  <!-- UTILIZADORES -->
+  <div style="background:#fff;padding:20px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.1);text-align:center;">
+    <h3 style="color:#6f42c1;">Utilizadores</h3>
+    <p><b>Total:</b> {{ total_utilizadores }}</p>
+    <p>Estudantes: {{ total_estudantes }}</p>
+    <p>Empresas: {{ total_empresas }}</p>
+    <p>Admins: {{ total_admins }}</p>
+  </div>
+
+  <!-- VAGAS -->
+  <div style="background:#fff;padding:20px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.1);text-align:center;">
+    <h3 style="color:#0d6efd;">Vagas</h3>
+    <p><b>Total:</b> {{ total_vagas }}</p>
+    <p>Internas: {{ vagas_internas }}</p>
+    <p>Externas: {{ vagas_externas }}</p>
+  </div>
+
+  <!-- CANDIDATURAS -->
+  <div style="background:#fff;padding:20px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.1);text-align:center;">
+    <h3 style="color:#28a745;">Candidaturas</h3>
+    <p><b>Total:</b> {{ total_candidaturas }}</p>
+    <p>Média por vaga: {{ media_candidaturas }}</p>
+  </div>
+
+  <!-- FAVORITOS -->
+  <div style="background:#fff;padding:20px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.1);text-align:center;">
+    <h3 style="color:#ffc107;">Favoritos</h3>
+    <p><b>Total salvos:</b> {{ total_favoritos }}</p>
+  </div>
+
+  <!-- PUBLICAÇÕES -->
+  <div style="background:#fff;padding:20px;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.1);text-align:center;">
+    <h3 style="color:#dc3545;">Publicações</h3>
+    <p>Notícias: {{ total_noticias }}</p>
+    <p>Dicas: {{ total_dicas }}</p>
+  </div>
+
+</div>
+
+<div style="margin-top:30px;text-align:center;">
+  <a href="{{ url_for('pagina_admin') }}"
+     style="background:#6c757d;color:#fff;padding:10px 20px;border-radius:6px;
+            text-decoration:none;font-weight:600;">
+    Voltar ao Painel Admin
+  </a>
+</div>
+{% endblock %}

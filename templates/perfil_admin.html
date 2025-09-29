@@ -1,19 +1,82 @@
 {% extends "base.html" %}
 {% block conteudo %}
-<div class="auth-container">
-  <div class="auth-card">
-    <h2>⚙️ Perfil do Admin</h2>
-    {% if sucesso %}<div class="alerta alerta-sucesso">Perfil atualizado!</div>{% endif %}
+
+<div style="margin-top:0; text-align:left;">
+  <a href="{{ url_for('pagina_admin') }}"
+     style="background:#6c757d;color:#fff;padding:10px 20px;border-radius:6px;
+            text-decoration:none;font-weight:600;transition:all .3s ease;"
+     onmouseover="this.style.background='#2c0f3e';this.style.transform='scale(1.05)';"
+     onmouseout="this.style.background='#6c757d';this.style.transform='scale(1)';">
+    Voltar ao Painel Admin
+  </a>
+</div>
+
+<!-- DUAS COLUNAS -->
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:30px;align-items:start;">
+
+  <!-- PERFIL -->
+  <div class="auth-card" style="background:#fff;padding:20px;border-radius:10px;
+                                box-shadow:0 2px 6px rgba(0,0,0,.1);">
+    <h3>Alterar dados do administrador</h3>
+    {% if sucesso %}
+      <div style="background:#d4edda;color:#155724;padding:10px;border-radius:6px;margin-bottom:10px;">
+        Perfil atualizado!
+      </div>
+    {% endif %}
 
     <form method="POST" class="auth-form">
       <label>Nome</label>
-      <input type="text" name="nome" value="{{ admin.nome }}" required>
+      <input type="text" name="nome" value="{{ admin.nome }}" required
+             style="width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;margin-bottom:10px;">
+
       <label>Email</label>
-      <input type="email" name="email" value="{{ admin.email }}" required>
+      <input type="email" name="email" value="{{ admin.email }}" required
+             style="width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;margin-bottom:10px;">
+
       <label>Notas Internas</label>
-      <textarea name="notas" rows="4">{{ admin.notas or "" }}</textarea>
-      <button type="submit" class="btn btn-azul full">Guardar</button>
+      <textarea name="notas" rows="4"
+                style="width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;margin-bottom:15px;">{{ admin.notas or "" }}</textarea>
+
+      <button type="submit"
+              style="background:#6f42c1;color:#fff;padding:10px 20px;border:none;border-radius:6px;font-weight:600;cursor:pointer;">
+        Guardar
+      </button>
     </form>
   </div>
+
+  <!-- ALTERAR SENHA -->
+  <div style="background:#fff;padding:20px;border-radius:10px;
+              box-shadow:0 2px 6px rgba(0,0,0,.1);">
+    <h3>Alterar senha</h3>
+
+    {% if senha_sucesso %}
+      <div style="background:#d4edda;color:#155724;padding:10px;border-radius:6px;margin-bottom:10px;">
+        Senha alterada com sucesso.
+      </div>
+    {% elif senha_erro %}
+      <div style="background:#f8d7da;color:#721c24;padding:10px;border-radius:6px;margin-bottom:10px;">
+        {{ senha_erro }}
+      </div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('alterar_senha_admin') }}" style="margin-top:10px;">
+      <div style="margin-bottom:10px;">
+        <input type="password" name="senha_atual" placeholder="Senha atual"
+               style="width:100%;padding:10px;border-radius:6px;border:1px solid #ccc;" required>
+      </div>
+      <div style="margin-bottom:10px;">
+        <input type="password" name="nova_senha" placeholder="Nova senha"
+               style="width:100%;padding:10px;border-radius:6px;border:1px solid #ccc;" required>
+      </div>
+      <div style="text-align:right;">
+        <button type="submit"
+                style="background:#6f42c1;color:#fff;padding:10px 16px;border:none;border-radius:6px;font-weight:600;cursor:pointer;">
+          Alterar
+        </button>
+      </div>
+    </form>
+  </div>
+
 </div>
+
 {% endblock %}

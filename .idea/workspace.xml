@@ -4,7 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ba04444-fe45-46c5-8664-10e27ad62358" name="Changes" comment="Projecto IEFP Penultima ALTERAÇÃO 4" />
+    <list default="true" id="8ba04444-fe45-46c5-8664-10e27ad62358" name="Changes" comment="Projecto IEFP Penultima ALTERAÇÃO 5">
+      <change afterPath="$PROJECT_DIR$/templates/configuracoes.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/editar_publicacao.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/editar_utilizador.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/gerir_utilizadores.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/relatorios.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/baseDados/adluc.db" beforeDir="false" afterPath="$PROJECT_DIR$/baseDados/adluc.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modelos/modelos.py" beforeDir="false" afterPath="$PROJECT_DIR$/modelos/modelos.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/imagens/favicon_.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/candidaturas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/candidaturas.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/detalhes_vaga.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/detalhes_vaga.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/editar_vaga.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/editar_vaga.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/estudante.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/estudante.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/favoritos.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/favoritos.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/gerir_candidaturas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/gerir_candidaturas.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/gestao_publicacoes.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/gestao_publicacoes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/minhas_vagas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/minhas_vagas.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/pagina_dicas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pagina_dicas.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/pagina_noticias.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pagina_noticias.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/perfil_admin.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/perfil_admin.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/publicar_conteudo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/publicar_conteudo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registo.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/vagas.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/vagas.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,7 +126,7 @@
       <workItem from="1758737416015" duration="13904000" />
       <workItem from="1758764733570" duration="3570000" />
       <workItem from="1758895222221" duration="45291000" />
-      <workItem from="1759085314585" duration="6806000" />
+      <workItem from="1759085314585" duration="28561000" />
     </task>
     <task id="LOCAL-00001" summary="Projecto Final AdLuc IEFP 3">
       <option name="closed" value="true" />
@@ -194,7 +224,23 @@
       <option name="project" value="LOCAL" />
       <updated>1759096128692</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Projecto IEFP Penultima ALTERAÇÃO 4">
+      <option name="closed" value="true" />
+      <created>1759096151662</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1759096151663</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Projecto IEFP Penultima ALTERAÇÃO 5">
+      <option name="closed" value="true" />
+      <created>1759096898538</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1759096898538</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -218,12 +264,31 @@
     <MESSAGE value="Projecto IEFP Penultima ALTERAÇÃO 2" />
     <MESSAGE value="Projecto IEFP Penultima ALTERAÇÃO 3" />
     <MESSAGE value="Projecto IEFP Penultima ALTERAÇÃO 4" />
-    <option name="LAST_COMMIT_MESSAGE" value="Projecto IEFP Penultima ALTERAÇÃO 4" />
+    <MESSAGE value="Projecto IEFP Penultima ALTERAÇÃO 5" />
+    <option name="LAST_COMMIT_MESSAGE" value="Projecto IEFP Penultima ALTERAÇÃO 5" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/templates/editar_vaga.html</url>
+          <line>83</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/templates/detalhes_vaga.html</url>
+          <line>60</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/adluc$run.coverage" NAME="run Coverage Results" MODIFIED="1758753021788" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/adluc$ingestao.coverage" NAME="ingestao Coverage Results" MODIFIED="1758745431432" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
-    <SUITE FILE_PATH="coverage/adluc$app.coverage" NAME="app Coverage Results" MODIFIED="1759095995885" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/adluc$app.coverage" NAME="app Coverage Results" MODIFIED="1759155152619" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/adluc$auth.coverage" NAME="auth Coverage Results" MODIFIED="1758744214721" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app" />
     <SUITE FILE_PATH="coverage/adluc$modelos.coverage" NAME="modelos Coverage Results" MODIFIED="1758803150406" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/modelos" />
   </component>

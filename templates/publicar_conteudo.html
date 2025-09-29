@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 {% block conteudo %}
+
+<div style="margin-top:0; text-align:left;">
+  <a href="{{ url_for('gestao_publicacoes') }}"
+     style="background:#6c757d;color:#fff;padding:10px 20px;border-radius:6px;
+            text-decoration:none;font-weight:600;transition:all .3s ease;"
+     onmouseover="this.style.background='#2c0f3e';this.style.transform='scale(1.05)';"
+     onmouseout="this.style.background='#6c757d';this.style.transform='scale(1)';">
+    Ir a Gestão de Publicações
+  </a>
+</div>
+
 <div class="auth-container">
   <div class="auth-card">
     <h2>Publicar Conteúdo</h2>

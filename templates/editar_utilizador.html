@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block conteudo %}
+<h2 style="margin-bottom:20px;">Editar Utilizador</h2>
+
+{% if sucesso %}
+<div id="alerta" style="position:fixed;top:20px;right:20px;background:rgba(40,167,69,0.95);
+                        color:#fff;padding:15px 20px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.2);
+                        font-size:14px;z-index:2000;animation:fadeIn .4s ease;">
+  ✅ Alterações guardadas com sucesso!
+</div>
+{% elif erro %}
+<div id="alerta" style="position:fixed;top:20px;right:20px;background:rgba(220,53,69,0.95);
+                        color:#fff;padding:15px 20px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.2);
+                        font-size:14px;z-index:2000;animation:fadeIn .4s ease;">
+  ⚠️ {{ erro }}
+</div>
+{% endif %}
+
+<div style="max-width:500px;margin:auto;background:#fff;padding:20px;border-radius:10px;
+            box-shadow:0 2px 6px rgba(0,0,0,.1);">
+  <form method="POST">
+    <div style="margin-bottom:15px;">
+      <label style="display:block;font-weight:600;margin-bottom:5px;">Nome</label>
+      <input type="text" name="nome" value="{{ utilizador.nome }}"
+             style="width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:14px;" required>
+    </div>
+
+    <div style="margin-bottom:15px;">
+      <label style="display:block;font-weight:600;margin-bottom:5px;">Email</label>
+      <input type="email" name="email" value="{{ utilizador.email }}"
+             style="width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:14px;" required>
+    </div>
+
+    <div style="margin-bottom:15px;">
+      <label style="display:block;font-weight:600;margin-bottom:5px;">Tipo de utilizador</label>
+      <select name="tipo" style="width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:14px;" required>
+        <option value="estudante" {% if utilizador.tipo=="estudante" %}selected{% endif %}>Estudante</option>
+        <option value="empresa" {% if utilizador.tipo=="empresa" %}selected{% endif %}>Empresa</option>
+        <option value="admin" {% if utilizador.tipo=="admin" %}selected{% endif %}>Admin</option>
+      </select>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <a href="{{ url_for('gerir_utilizadores') }}"
+         style="background:#6c757d;color:#fff;padding:10px 15px;border-radius:6px;text-decoration:none;font-weight:600;">
+        Voltar
+      </a>
+      <button type="submit"
+              style="background:#6f42c1;color:#fff;padding:10px 20px;border:none;border-radius:6px;
+                     font-size:15px;font-weight:600;cursor:pointer;">
+        Guardar Alterações
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+// Fechar alerta automaticamente após 3 segundos
+setTimeout(() => {
+  const alerta = document.getElementById("alerta");
+  if (alerta) alerta.style.display = "none";
+}, 3000);
+</script>
+
+<style>
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(-10px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+</style>
+{% endblock %}

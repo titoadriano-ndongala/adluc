@@ -1,25 +1,90 @@
 {% extends "base.html" %}
 {% block conteudo %}
-<h2>Editar Vaga</h2>
-<form method="POST">
-  <label>Título</label><input name="titulo" value="{{ vaga.titulo }}" required>
-  <label>Categoria</label><input name="categoria" value="{{ vaga.categoria }}">
-  <label>Cidade</label><input name="cidade" value="{{ vaga.cidade }}">
-  <label>Horário</label>
-  <select name="horario">
-    <option value="" {% if not vaga.horario %}selected{% endif %}>--</option>
-    <option value="full-time" {% if vaga.horario=='full-time' %}selected{% endif %}>full-time</option>
-    <option value="part-time" {% if vaga.horario=='part-time' %}selected{% endif %}>part-time</option>
-    <option value="remoto" {% if vaga.horario=='remoto' %}selected{% endif %}>remoto</option>
-  </select>
-  <label>Tipo</label>
-  <select name="tipo">
-    <option value="" {% if not vaga.tipo %}selected{% endif %}>--</option>
-    <option value="emprego" {% if vaga.tipo=='emprego' %}selected{% endif %}>emprego</option>
-    <option value="estagio" {% if vaga.tipo=='estagio' %}selected{% endif %}>estagio</option>
-    <option value="bolsa" {% if vaga.tipo=='bolsa' %}selected{% endif %}>bolsa</option>
-  </select>
-  <label>Descrição</label><textarea name="descricao" rows="5" required>{{ vaga.descricao }}</textarea>
-  <button class="btn btn-primario" type="submit">Guardar</button>
-</form>
+<div style="max-width:600px;margin:auto;background:#fff;padding:25px;border-radius:10px;
+            box-shadow:0 4px 10px rgba(0,0,0,0.1);transition:all .3s ease;">
+
+  <form method="POST" style="display:flex;flex-direction:column;gap:15px;">
+
+    <!-- Título -->
+    <div>
+      <label style="font-weight:600;color:#333;margin-bottom:6px;display:block;">Título da Vaga</label>
+      <input type="text" name="titulo" value="{{ vaga.titulo }}"
+             style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;
+                    font-size:15px;transition:border .3s;"
+             onfocus="this.style.border='1px solid #3366cc';"
+             onblur="this.style.border='1px solid #ccc';">
+    </div>
+
+    <!-- Categoria -->
+    <div>
+      <label style="font-weight:600;color:#333;margin-bottom:6px;display:block;">Categoria</label>
+      <input type="text" name="categoria" value="{{ vaga.categoria or '' }}"
+             style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;
+                    font-size:15px;transition:border .3s;"
+             onfocus="this.style.border='1px solid #3366cc';"
+             onblur="this.style.border='1px solid #ccc';">
+    </div>
+
+    <!-- Descrição -->
+    <div>
+      <label style="font-weight:600;color:#333;margin-bottom:6px;display:block;">Descrição</label>
+      <textarea name="descricao" rows="5"
+                style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;
+                       font-size:15px;resize:vertical;transition:border .3s;">{{ vaga.descricao }}</textarea>
+    </div>
+
+    <!-- Cidade -->
+    <div>
+      <label style="font-weight:600;color:#333;margin-bottom:6px;display:block;">Cidade</label>
+      <input type="text" name="cidade" value="{{ vaga.cidade or '' }}"
+             style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;
+                    font-size:15px;transition:border .3s;"
+             onfocus="this.style.border='1px solid #3366cc';"
+             onblur="this.style.border='1px solid #ccc';">
+    </div>
+
+    <!-- Horário -->
+    <div>
+      <label style="font-weight:600;color:#333;margin-bottom:6px;display:block;">Horário</label>
+      <select name="horario"
+              style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;
+                     font-size:15px;transition:border .3s;">
+        <option value="">-- Selecione --</option>
+        <option value="full-time" {% if vaga.horario=="full-time" %}selected{% endif %}>Full-time</option>
+        <option value="part-time" {% if vaga.horario=="part-time" %}selected{% endif %}>Part-time</option>
+        <option value="remoto" {% if vaga.horario=="remoto" %}selected{% endif %}>Remoto</option>
+      </select>
+    </div>
+
+    <!-- Tipo -->
+    <div>
+      <label style="font-weight:600;color:#333;margin-bottom:6px;display:block;">Tipo</label>
+      <select name="tipo"
+              style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;
+                     font-size:15px;transition:border .3s;">
+        <option value="">-- Selecione --</option>
+        <option value="emprego" {% if vaga.tipo=="emprego" %}selected{% endif %}>Emprego</option>
+        <option value="estagio" {% if vaga.tipo=="estagio" %}selected{% endif %}>Estágio</option>
+        <option value="bolsa" {% if vaga.tipo=="bolsa" %}selected{% endif %}>Bolsa</option>
+      </select>
+    </div>
+
+    <!-- Botões -->
+    <div style="display:flex;justify-content:space-between;gap:10px;margin-top:10px;">
+      <a href="{{ url_for('minhas_vagas') }}"
+         style="flex:1;text-align:center;background:#777;color:#fff;padding:10px;border-radius:6px;
+                text-decoration:none;font-weight:600;transition:background .3s;"
+         onmouseover="this.style.background='#555';"
+         onmouseout="this.style.background='#777';">Cancelar</a>
+
+      <button type="submit"
+              style="flex:1;background:#882bbf;color:#fff;border:none;padding:10px;border-radius:6px;
+                     font-size:15px;font-weight:600;cursor:pointer;transition:background .3s;"
+              onmouseover="this.style.background='#2c0f3e';"
+              onmouseout="this.style.background='#8e28ca';">
+        Guardar Alterações
+      </button>
+    </div>
+  </form>
+</div>
 {% endblock %}

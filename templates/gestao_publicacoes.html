@@ -1,25 +1,78 @@
 {% extends "base.html" %}
 {% block conteudo %}
-<h2>Gestão de Notícias & Dicas</h2>
-<a href="{{ url_for('publicar_conteudo') }}" class="btn btn-azul">➕ Nova Publicação</a>
 
-<section class="vagas-lista" style="margin-top:20px;">
+<div style="margin-top:0; text-align:left;">
+  <a href="{{ url_for('pagina_admin') }}"
+     style="background:#6c757d;color:#fff;padding:10px 20px;border-radius:6px;
+            text-decoration:none;font-weight:600;transition:all .3s ease;"
+     onmouseover="this.style.background='#2c0f3e';this.style.transform='scale(1.05)';"
+     onmouseout="this.style.background='#6c757d';this.style.transform='scale(1)';">
+    Voltar ao Painel Admin
+  </a>
+</div>
+
+
+<h2 style="margin:20px 0;font-size:24px;color:#333;">Gestão de Publicações</h2>
+
+<div style="margin-bottom:20px;">
+  <a href="{{ url_for('publicar_conteudo') }}"
+     style="display:inline-block;background:#882bbf;color:#fff;padding:10px 16px;border-radius:6px;
+            font-size:15px;font-weight:600;text-decoration:none;transition:background .3s;"
+     onmouseover="this.style.background='#2c0f3e';"
+     onmouseout="this.style.background='#c565fa';">
+    ➕ Nova Publicação
+  </a>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:20px;">
+
   {% for pub in publicacoes %}
-    <div class="card vaga-card card-link-wrapper">
-      <a href="{{ url_for('detalhe_publicacao', pub_id=pub.id) }}" class="card-link">
-        <h3>{{ pub.titulo }}</h3>
-        <p><b>{{ pub.tipo|capitalize }}</b> | {{ pub.data_hora.strftime("%d/%m/%Y %H:%M") }}</p>
-        <p>{{ pub.conteudo[:120] }}...</p>
-      </a>
-      <div class="card-actions">
-        <a href="{{ url_for('editar_publicacao', pub_id=pub.id) }}" class="btn btn-primario">✏Editar</a>
-        <form method="POST" action="{{ url_for('remover_publicacao', pub_id=pub.id) }}" onsubmit="return confirmarRemocao('Remover esta publicação?')">
-          <button type="submit" class="btn btn-perigo">🗑 Remover</button>
+    <div
+      style="background:#fff;border-radius:10px;padding:20px;box-shadow:0 2px 6px rgba(0,0,0,.1);
+             transition:all .3s ease;cursor:pointer;"
+      onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 6px 16px rgba(0,0,0,0.15)';"
+      onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 6px rgba(0,0,0,.1)';"
+    >
+      <h3 style="margin:0;font-size:18px;color:#222;">{{ pub.titulo }}</h3>
+      <p style="font-size:14px;color:#555;margin:8px 0 12px;line-height:1.5;">
+        {{ pub.conteudo[:160] }}...
+      </p>
+
+      <div style="margin-bottom:12px;">
+        <span style="display:inline-block;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:600;
+                     color:#fff;background:{% if pub.tipo=='noticia' %}#3366cc{% else %}#f39c12{% endif %};">
+          {% if pub.tipo=='noticia' %}📰 Notícia{% else %}💡 Dica{% endif %}
+        </span>
+        <span style="font-size:12px;color:#888;margin-left:10px;">
+          📅 {{ pub.data_hora.strftime("%d/%m/%Y %H:%M") }}
+        </span>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <a href="{{ url_for('editar_publicacao', pub_id=pub.id) }}"
+           style="text-decoration:none;background:#27ae60;color:#fff;padding:8px 14px;border-radius:6px;
+                  font-size:14px;font-weight:600;transition:background .3s;"
+           onmouseover="this.style.background='#1e8449';"
+           onmouseout="this.style.background='#27ae60';">
+          Editar
+        </a>
+
+        <form method="POST" action="{{ url_for('remover_publicacao', pub_id=pub.id) }}" style="margin:0;">
+          <button type="submit"
+                  style="background:#e74c3c;color:#fff;border:none;padding:8px 14px;border-radius:6px;
+                         font-size:13px;font-weight:600;cursor:pointer;transition:background .3s;"
+                  onmouseover="this.style.background='#c0392b';"
+                  onmouseout="this.style.background='#e74c3c';">
+            Remover
+          </button>
         </form>
       </div>
     </div>
   {% else %}
-    <p>Nenhuma publicação encontrada.</p>
+    <p style="color:#777;">Ainda não existem publicações.</p>
   {% endfor %}
-</section>
+
+</div>
+
+
 {% endblock %}

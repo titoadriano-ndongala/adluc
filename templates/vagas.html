@@ -14,95 +14,73 @@
                style="width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:14px;">
       </div>
 
+      <!-- Cidade -->
       <div style="margin-bottom:12px;">
         <label style="font-weight:600;font-size:14px;">Cidade</label>
-        <input type="text" name="cidade" value="{{ filtros.cidade }}" placeholder="Ex.: Lisboa"
-               style="width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:14px;">
+        <select name="cidade" style="width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:14px;">
+          <option value="">-- Todas --</option>
+          {% for c in cidades %}
+            <option value="{{ c }}" {% if filtros.cidade==c %}selected{% endif %}>{{ c }}</option>
+          {% endfor %}
+        </select>
       </div>
 
+      <!-- Categoria -->
       <div style="margin-bottom:12px;">
         <label style="font-weight:600;font-size:14px;">Categoria</label>
         <select name="categoria" style="width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:14px;">
           <option value="">-- Todas --</option>
-          <option>Administração / Secretariado</option>
-          <option>Agricultura / Florestas / Pescas</option>
-          <option>Arquitectura / Design</option>
-          <option>Artes / Entretenimento / Media</option>
-          <option>Banca / Seguros / Serviços Financeiros</option>
-          <option>Beleza / Moda / Bem Estar</option>
-          <option>Call Center / Help Desk</option>
-          <option>Comercial / Vendas</option>
-          <option>Comunicação Social / Media</option>
-          <option>Conservação / Manutenção / Técnica</option>
-          <option>Construção Civil</option>
-          <option>Contabilidade / Finanças</option>
-          <option>Desporto / Ginásios</option>
-          <option>Direito / Justiça</option>
-          <option>Educação / Formação</option>
-          <option>Engenharia (Ambiente)</option>
-          <option>Engenharia (Civil)</option>
-          <option>Engenharia (Eletrotécnica)</option>
-          <option>Engenharia (Mecânica)</option>
-          <option>Engenharia (Química / Biologia)</option>
-          <option>Farmácia / Biotecnologia</option>
-          <option>Gestão de Empresas / Economia</option>
-          <option>Gestão RH</option>
-          <option>Hotelaria / Turismo</option>
-          <option>Imobiliário</option>
-          <option>Indústria / Produção</option>
-          <option>Informática (Análise de Sistemas)</option>
-          <option>Informática (Formação)</option>
-          <option>Informática (Gestão de Redes)</option>
-          <option>Informática (Internet)</option>
-          <option>Informática (Multimédia)</option>
-          <option>Informática (Programação)</option>
-          <option>Informática (Técnico de Hardware)</option>
-          <option>Informática (Comercial / Gestor de Conta)</option>
-          <option>Limpezas / Domésticas</option>
-          <option>Lojas / Comércio / Balcão</option>
-          <option>Publicidade / Marketing</option>
-          <option>Relações Públicas</option>
-          <option>Restauração / Bares / Pastelarias</option>
-          <option>Saúde / Medicina / Enfermagem</option>
-          <option>Serviços Sociais</option>
-          <option>Serviços Técnicos</option>
-          <option>Telecomunicações</option>
-          <option>Transportes / Logística</option>
+          {% for cat in categorias %}
+            <option value="{{ cat }}" {% if filtros.categoria==cat %}selected{% endif %}>{{ cat }}</option>
+          {% endfor %}
         </select>
       </div>
 
-      <div style="margin-bottom:12px;position:relative;">
+      <!-- Empresa -->
+      <div style="margin-bottom:12px;">
         <label style="font-weight:600;font-size:14px;">Empresa</label>
-        <input type="text" id="empresa-input" name="empresa" value="{{ filtros.empresa or '' }}"
-               placeholder="Digite o nome da empresa"
-               style="width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:14px;">
-        <div id="sugestoes-empresa"
-             style="position:absolute;top:65px;left:0;width:100%;background:#fff;border:1px solid #ccc;border-radius:6px;
-                    max-height:200px;overflow-y:auto;z-index:1000;display:none;"></div>
+        <select name="empresa" style="width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:14px;">
+          <option value="">-- Todas --</option>
+          {% for e in empresas %}
+            <option value="{{ e }}" {% if filtros.empresa==e %}selected{% endif %}>{{ e }}</option>
+          {% endfor %}
+        </select>
       </div>
 
+      <!-- Horário -->
       <div style="margin-bottom:12px;">
         <label style="font-weight:600;font-size:14px;">Horário</label>
         <select name="horario" style="width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:14px;">
           <option value="">-- Todos --</option>
-          <option value="full-time">Full-time</option>
-          <option value="part-time">Part-time</option>
-          <option value="remoto">Remoto</option>
+          <option value="full-time" {% if filtros.horario=='full-time' %}selected{% endif %}>Full-time</option>
+          <option value="part-time" {% if filtros.horario=='part-time' %}selected{% endif %}>Part-time</option>
+          <option value="remoto" {% if filtros.horario=='remoto' %}selected{% endif %}>Remoto</option>
         </select>
       </div>
 
+      <!-- Tipo -->
       <div style="margin-bottom:12px;">
         <label style="font-weight:600;font-size:14px;">Tipo</label>
         <select name="tipo" style="width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:14px;">
           <option value="">-- Todos --</option>
-          <option value="emprego">Emprego</option>
-          <option value="estagio">Estágio</option>
-          <option value="bolsa">Bolsa</option>
+          <option value="emprego" {% if filtros.tipo=='emprego' %}selected{% endif %}>Emprego</option>
+          <option value="estagio" {% if filtros.tipo=='estagio' %}selected{% endif %}>Estágio</option>
+          <option value="bolsa" {% if filtros.tipo=='bolsa' %}selected{% endif %}>Bolsa</option>
+        </select>
+      </div>
+
+      <!-- Natureza -->
+      <div style="margin-bottom:12px;">
+        <label style="font-weight:600;font-size:14px;">Natureza</label>
+        <select name="natureza" style="width:100%;padding:10px;border:1px solid #ccc;border-radius:6px;font-size:14px;">
+          <option value="">-- Todas --</option>
+          <option value="interna" {% if filtros.natureza=='interna' %}selected{% endif %}>Interna</option>
+          <option value="externa" {% if filtros.natureza=='externa' %}selected{% endif %}>Externa</option>
         </select>
       </div>
     </form>
 
-    <p style="margin-top:15px;font-size:14px;color:#555;">Resultado: <b id="total-vagas">{{ total }}</b> vagas</p>
+    <p style="margin-top:15px;font-size:14px;color:#555;">Resultado: <b id="total-vagas"></b></p>
   </aside>
 
   <!-- LISTAGEM DE VAGAS -->
@@ -112,42 +90,6 @@
 </div>
 
 <script>
-// ===== AUTOCOMPLETE DE EMPRESA =====
-const input = document.getElementById("empresa-input");
-const sugestoesBox = document.getElementById("sugestoes-empresa");
-
-input.addEventListener("input", async () => {
-  const termo = input.value.trim();
-  if (termo.length < 2) {
-    sugestoesBox.style.display = "none";
-    return;
-  }
-  const resp = await fetch(`/api/empresas?q=${encodeURIComponent(termo)}`);
-  const dados = await resp.json();
-
-  if (dados.length === 0) {
-    sugestoesBox.style.display = "none";
-    return;
-  }
-
-  sugestoesBox.innerHTML = "";
-  dados.forEach(emp => {
-    const div = document.createElement("div");
-    div.textContent = emp.nome;
-    div.style.padding = "8px 10px";
-    div.style.cursor = "pointer";
-    div.onmouseover = () => div.style.background = "#f2f2f2";
-    div.onmouseout = () => div.style.background = "#fff";
-    div.onclick = () => {
-      input.value = emp.nome;
-      sugestoesBox.style.display = "none";
-      carregarVagas(); // dispara atualização imediata
-    };
-    sugestoesBox.appendChild(div);
-  });
-  sugestoesBox.style.display = "block";
-});
-
 // ===== BUSCA EM TEMPO REAL DAS VAGAS =====
 const formFiltros = document.getElementById("form-filtros");
 const listaVagas = document.getElementById("lista-vagas");
@@ -167,34 +109,36 @@ async function carregarVagas() {
   }
 
   dados.forEach(v => {
-    const card = document.createElement("a");
-    card.href = v.link;
-    if (v.externa) card.target = "_blank";
-    card.style = "display:block;text-decoration:none;color:inherit;";
+    const card = document.createElement("div");
+    card.style = "background:#fff;border:1px solid #ddd;border-radius:10px;padding:15px;margin-bottom:10px;" +
+                 "box-shadow:0 2px 6px rgba(0,0,0,.05);transition:all .25s ease;cursor:pointer;overflow:hidden;";
+    card.onmouseover = () => { card.style.transform="translateY(-5px)"; card.style.boxShadow="0 8px 16px rgba(0,0,0,0.15)"; };
+    card.onmouseout  = () => { card.style.transform="translateY(0)";    card.style.boxShadow="0 2px 6px rgba(0,0,0,.05)"; };
 
     card.innerHTML = `
-      <div style="background:#fff;border:1px solid #ddd;border-radius:10px;padding:15px;
-                  box-shadow:0 2px 6px rgba(0,0,0,.05);transition:all .25s ease;cursor:pointer;overflow:hidden;"
-           onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 8px 16px rgba(0,0,0,0.15)';"
-           onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 6px rgba(0,0,0,.05)';">
-
+      <a href="${v.link}" ${v.externa ? 'target="_blank"' : ''} style="text-decoration:none;color:inherit;">
         <img src="${v.imagem}" alt="Imagem da vaga"
              style="width:100%;height:140px;object-fit:cover;border-radius:6px;margin-bottom:10px;">
-
         <span style="display:inline-block;padding:4px 8px;border-radius:12px;font-size:12px;font-weight:700;
-                     color:#fff;background:${v.externa ? "#0d6efd" : "#28a745"};margin-bottom:8px;">
+                     color:#fff;background:${v.externa ? "#2ba656" : "#882bbf"};margin-bottom:8px;">
           ${v.externa ? "Vaga Externa" : "Vaga Interna"}
         </span>
-
         <h3 style="margin:10px 0;font-size:17px;color:#333;line-height:1.3;">${v.titulo}</h3>
-
         ${v.categoria ? `<p style="margin:2px 0;font-size:13px;color:#555;"><b>Categoria:</b> ${v.categoria}</p>` : ""}
         ${v.cidade ? `<p style="margin:2px 0;font-size:13px;color:#555;"><b>Cidade:</b> ${v.cidade}</p>` : ""}
         ${v.horario ? `<p style="margin:2px 0;font-size:13px;color:#555;"><b>Horário:</b> ${v.horario}</p>` : ""}
         ${v.tipo ? `<p style="margin:2px 0;font-size:13px;color:#555;"><b>Tipo:</b> ${v.tipo}</p>` : ""}
-
         <p style="margin-top:8px;font-size:13px;color:#444;">${v.descricao}</p>
-      </div>
+      </a>
+
+      <!-- BOTÃO FAVORITAR -->
+      <form method="POST" action="/favoritar/${v.id}" style="margin-top:10px;text-align:right;">
+        <button type="submit"
+                style="background:none;border:none;cursor:pointer;font-size:18px;"
+                title="Guardar vaga">
+          ⭐
+        </button>
+      </form>
     `;
     listaVagas.appendChild(card);
   });

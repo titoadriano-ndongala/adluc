@@ -1,7 +1,7 @@
 import os
 import re
 from flask import Flask, render_template, request, redirect, url_for, session, send_from_directory, jsonify
-from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 from flask_mail import Mail, Message
 from modelos.modelos import db, Utilizador, Vaga, Candidatura, Favorito, Publicacao, Comentario
@@ -284,41 +284,133 @@ def registo():
 # LISTA VAGAS (com filtros simples e paginação)
 @app.route("/vagas", endpoint="pagina_vagas")
 def pagina_vagas():
-    q=request.args.get("q","").strip(); cidade=request.args.get("cidade","").strip()
-    categoria=request.args.get("categoria","").strip()
-    horario=request.args.get("horario","").strip(); tipo=request.args.get("tipo","").strip()
-    pagina=request.args.get("pagina",1,type=int); por_pagina=9
-    query=Vaga.query.order_by(Vaga.id.desc())
-    if q: query=query.filter((Vaga.titulo.ilike(f"%{q}%"))|(Vaga.descricao.ilike(f"%{q}%")))
-    if cidade: query=query.filter(Vaga.cidade.ilike(f"%{cidade}%"))
-    if categoria: query=query.filter(Vaga.categoria.ilike(f"%{categoria}%"))
-    if horario: query=query.filter(Vaga.horario==horario)
-    if tipo: query=query.filter(Vaga.tipo==tipo)
-    total=query.count()
-    vagas=query.offset((pagina-1)*por_pagina).limit(por_pagina).all()
-    return render_template("vagas.html",
-        vagas=vagas,total=total,pagina=pagina,
-        tem_prev=pagina>1,tem_next=(pagina*por_pagina)<total,
-        filtros={"q":q,"cidade":cidade,"categoria":categoria,"horario":horario,"tipo":tipo},
-        fav_ids=ids_favoritos_do_estudante())
+    q = request.args.get("q", "").strip()
+    cidade = request.args.get("cidade", "").strip()
+    categoria = request.args.get("categoria", "").strip()
+    horario = request.args.get("horario", "").strip()
+    tipo = request.args.get("tipo", "").strip()
+    empresa_nome = request.args.get("empresa", "").strip()
+    natureza = request.args.get("natureza", "").strip()
+    pagina = request.args.get("pagina", 1, type=int)
+    por_pagina = 9
+
+    query = Vaga.query.order_by(Vaga.id.desc())
+
+    # filtros
+    if q:
+        query = query.filter((Vaga.titulo.ilike(f"%{q}%")) | (Vaga.descricao.ilike(f"%{q}%")))
+    if cidade:
+        query = query.filter(Vaga.cidade.ilike(f"%{cidade}%"))
+    if categoria:
+        query = query.filter(Vaga.categoria == categoria)
+    if horario:
+        query = query.filter(Vaga.horario == horario)
+    if tipo:
+        query = query.filter(Vaga.tipo == tipo)
+    if empresa_nome:
+        query = query.join(Utilizador, Vaga.empresa_id == Utilizador.id).filter(
+            Utilizador.nome_empresa.ilike(f"%{empresa_nome}%")
+        )
+    if natureza == "interna":
+        query = query.filter(Vaga.externa == False)
+    elif natureza == "externa":
+        query = query.filter(Vaga.externa == True)
+
+    total = query.count()
+    vagas = query.offset((pagina - 1) * por_pagina).limit(por_pagina).all()
+
+    # Distritos fixos (Portugal)
+    distritos = [
+        "Aveiro","Beja","Braga","Bragança","Castelo Branco","Coimbra","Évora","Faro",
+        "Guarda","Leiria","Lisboa","Portalegre","Porto","Santarém","Setúbal",
+        "Viana do Castelo","Vila Real","Viseu",
+        "Região Autónoma dos Açores","Região Autónoma da Madeira"
+    ]
+
+    # Categorias fixas (SRS)
+    categorias = [
+        "Administração / Secretariado","Agricultura / Florestas / Pescas","Arquitectura / Design",
+        "Artes / Entretenimento / Media","Banca / Seguros / Serviços Financeiros","Beleza / Moda / Bem Estar",
+        "Call Center / Help Desk","Comercial / Vendas","Comunicação Social / Media","Conservação / Manutenção / Técnica",
+        "Construção Civil","Contabilidade / Finanças","Desporto / Ginásios","Direito / Justiça",
+        "Educação / Formação","Engenharia (Ambiente)","Engenharia (Civil)","Engenharia (Eletrotécnica)",
+        "Engenharia (Mecânica)","Engenharia (Química / Biologia)","Farmácia / Biotecnologia",
+        "Gestão de Empresas / Economia","Gestão RH","Hotelaria / Turismo","Imobiliário",
+        "Indústria / Produção","Informática (Análise de Sistemas)","Informática (Formação)",
+        "Informática (Gestão de Redes)","Informática (Internet)","Informática (Multimédia)",
+        "Informática (Programação)","Informática (Técnico de Hardware)","Informática (Comercial / Gestor de Conta)",
+        "Limpezas / Domésticas","Lojas / Comércio / Balcão","Publicidade / Marketing","Relações Públicas",
+        "Restauração / Bares / Pastelarias","Saúde / Medicina / Enfermagem","Serviços Sociais",
+        "Serviços Técnicos","Telecomunicações","Transportes / Logística"
+    ]
+
+    # Empresas da BD
+    empresas = [e.nome_empresa for e in Utilizador.query.filter_by(tipo="empresa").all() if e.nome_empresa]
+
+    return render_template(
+        "vagas.html",
+        vagas=vagas,
+        total=total,
+        pagina=pagina,
+        tem_prev=pagina > 1,
+        tem_next=(pagina * por_pagina) < total,
+        filtros={
+            "q": q,
+            "cidade": cidade,
+            "categoria": categoria,
+            "horario": horario,
+            "tipo": tipo,
+            "empresa": empresa_nome,
+            "natureza": natureza,
+        },
+        cidades=distritos,
+        categorias=categorias,
+        empresas=empresas,
+        fav_ids=ids_favoritos_do_estudante(),
+    )
 
 # DETALHES + candidatura (internas)
 @app.route("/vaga/<int:vaga_id>", methods=["GET","POST"], endpoint="detalhes_vaga")
 def detalhes_vaga(vaga_id):
-    vaga=Vaga.query.get_or_404(vaga_id); erro=None; sucesso=False
-    if request.method=="POST":
-        if session.get("tipo")!="estudante": return redirect(url_for("login"))
-        ficheiro=request.files.get("cv")
-        if not ficheiro or ficheiro.filename=="": erro="Seleciona um ficheiro."
-        elif not allowed_file(ficheiro.filename): erro="Aceites: PDF/DOC/DOCX."
-        else:
-            nome=secure_filename(ficheiro.filename); caminho=os.path.join(app.config["UPLOAD_FOLDER"],nome)
-            ficheiro.save(caminho)
-            db.session.add(Candidatura(estudante_id=session["utilizador_id"], vaga_id=vaga.id, ficheiro_cv=nome))
-            db.session.commit(); sucesso=True
-    return render_template("detalhes_vaga.html", vaga=vaga, erro_upload=erro, sucesso=sucesso,
-                           fav_ids=ids_favoritos_do_estudante())
+    vaga = Vaga.query.get_or_404(vaga_id)
+    erro, sucesso, aviso = None, False, None
 
+    if request.method == "POST":
+        if session.get("tipo") != "estudante":
+            return redirect(url_for("login"))
+
+        # Verifica se já existe candidatura para esta vaga
+        ja = Candidatura.query.filter_by(
+            estudante_id=session["utilizador_id"], vaga_id=vaga.id
+        ).first()
+        if ja:
+            aviso = f"{session['nome']}, já tens uma candidatura feita nessa vaga. Volte a tentar noutra e apenas aguarda o feedback do RH da empresa. Obrigado!"
+        else:
+            ficheiro = request.files.get("cv")
+            if not ficheiro or ficheiro.filename == "":
+                erro = "Seleciona um ficheiro."
+            elif not allowed_file(ficheiro.filename):
+                erro = "Aceites: PDF/DOC/DOCX."
+            else:
+                nome = secure_filename(ficheiro.filename)
+                caminho = os.path.join(app.config["UPLOAD_FOLDER"], nome)
+                ficheiro.save(caminho)
+                db.session.add(Candidatura(
+                    estudante_id=session["utilizador_id"],
+                    vaga_id=vaga.id,
+                    ficheiro_cv=nome
+                ))
+                db.session.commit()
+                sucesso = True
+
+    return render_template(
+        "detalhes_vaga.html",
+        vaga=vaga,
+        erro_upload=erro,
+        sucesso=sucesso,
+        aviso=aviso,
+        fav_ids=ids_favoritos_do_estudante()
+    )
 
 
 
@@ -685,6 +777,7 @@ def api_empresas():
 
 
 
+
 @app.route("/api/vagas")
 def api_vagas():
     q = request.args.get("q", "").lower()
@@ -693,13 +786,13 @@ def api_vagas():
     horario = request.args.get("horario", "")
     tipo = request.args.get("tipo", "")
     empresa_nome = request.args.get("empresa", "").lower()
+    natureza = request.args.get("natureza", "").lower()  # <-- novo filtro
 
-    # começa sempre com todas as vagas
     query = Vaga.query
 
     # filtros
     if q:
-        query = query.filter(or_(Vaga.titulo.ilike(f"%{q}%"), Vaga.descricao.ilike(f"%{q}%")))
+        query = query.filter(Vaga.titulo.ilike(f"%{q}%") | Vaga.descricao.ilike(f"%{q}%"))
     if cidade:
         query = query.filter(Vaga.cidade.ilike(f"%{cidade}%"))
     if categoria:
@@ -710,6 +803,10 @@ def api_vagas():
         query = query.filter(Vaga.tipo == tipo)
     if empresa_nome:
         query = query.join(Utilizador, Vaga.empresa_id == Utilizador.id).filter(Utilizador.nome_empresa.ilike(f"%{empresa_nome}%"))
+    if natureza == "interna":
+        query = query.filter(Vaga.externa == False)
+    elif natureza == "externa":
+        query = query.filter(Vaga.externa == True)
 
     vagas = query.order_by(Vaga.id.desc()).limit(50).all()
 
@@ -725,11 +822,19 @@ def api_vagas():
             "tipo": v.tipo,
             "externa": v.externa,
             "link": v.link_externo if v.externa else url_for("detalhes_vaga", vaga_id=v.id),
-            "imagem": v.imagem_externa if v.externa and v.imagem_externa else (
-                url_for("download_cv", filename=v.empresa.logo_empresa) if v.empresa and v.empresa.logo_empresa else url_for("static", filename="imagens/fallback_vaga.png")
+            "imagem": (
+                url_for("static", filename="imagens/fallback_vaga.png")
+                if v.externa else (
+                    url_for("download_cv", filename=v.empresa.logo_empresa)
+                    if v.empresa and v.empresa.logo_empresa else url_for("static", filename="imagens/fallback_vaga.png")
+                )
             )
         })
     return jsonify(resultados)
+
+
+
+
 
 
 
@@ -761,7 +866,116 @@ def pagina_precos():
 #psql postgresql://adluc_db_user:gEjfLb67nwshZr0j4dLHnjNyXP2FIKwH@dpg-d3cpfnqdbo4c73edafd0-a/adluc_db
 
 
+# GERIR UTILIZADORES
+@app.route("/admin/utilizadores", endpoint="gerir_utilizadores")
+def gerir_utilizadores():
+    if session.get("tipo") != "admin":
+        return redirect(url_for("login"))
+    utilizadores = Utilizador.query.order_by(Utilizador.id.desc()).all()
+    return render_template("gerir_utilizadores.html", utilizadores=utilizadores)
 
+@app.route("/admin/utilizador/<int:utilizador_id>/editar", methods=["GET","POST"], endpoint="editar_utilizador")
+def editar_utilizador(utilizador_id):
+    if session.get("tipo") != "admin":
+        return redirect(url_for("login"))
+
+    u = Utilizador.query.get_or_404(utilizador_id)
+    erro, sucesso = None, False
+
+    if request.method == "POST":
+        try:
+            u.nome = request.form.get("nome")
+            u.email = request.form.get("email")
+            u.tipo = request.form.get("tipo")
+            db.session.commit()
+            sucesso = True
+        except Exception as e:
+            erro = f"Ocorreu um erro: {e}"
+
+    return render_template("editar_utilizador.html", utilizador=u, erro=erro, sucesso=sucesso)
+
+
+@app.route("/admin/utilizador/<int:utilizador_id>/remover", methods=["POST"], endpoint="remover_utilizador")
+def remover_utilizador(utilizador_id):
+    if session.get("tipo") != "admin":
+        return redirect(url_for("login"))
+    u = Utilizador.query.get_or_404(utilizador_id)
+    db.session.delete(u)
+    db.session.commit()
+    return redirect(url_for("gerir_utilizadores"))
+
+
+
+
+
+@app.route("/admin/relatorios", endpoint="relatorios")
+def relatorios():
+    if session.get("tipo") != "admin":
+        return redirect(url_for("login"))
+
+    total_utilizadores = Utilizador.query.count()
+    total_estudantes = Utilizador.query.filter_by(tipo="estudante").count()
+    total_empresas = Utilizador.query.filter_by(tipo="empresa").count()
+    total_admins = Utilizador.query.filter_by(tipo="admin").count()
+
+    total_vagas = Vaga.query.count()
+    vagas_internas = Vaga.query.filter_by(externa=False).count()
+    vagas_externas = Vaga.query.filter_by(externa=True).count()
+
+    total_candidaturas = Candidatura.query.count()
+    media_candidaturas = round(total_candidaturas / total_vagas, 2) if total_vagas else 0
+
+    total_favoritos = Favorito.query.count()
+
+    total_noticias = Publicacao.query.filter_by(tipo="noticia").count()
+    total_dicas = Publicacao.query.filter_by(tipo="dica").count()
+
+    return render_template(
+        "relatorios.html",
+        total_utilizadores=total_utilizadores,
+        total_estudantes=total_estudantes,
+        total_empresas=total_empresas,
+        total_admins=total_admins,
+        total_vagas=total_vagas,
+        vagas_internas=vagas_internas,
+        vagas_externas=vagas_externas,
+        total_candidaturas=total_candidaturas,
+        media_candidaturas=media_candidaturas,
+        total_favoritos=total_favoritos,
+        total_noticias=total_noticias,
+        total_dicas=total_dicas,
+    )
+
+
+
+@app.route("/admin/configuracoes", endpoint="pagina_configuracoes")
+def pagina_configuracoes():
+    if session.get("tipo") != "admin":
+        return redirect(url_for("login"))
+    return render_template("configuracoes.html")
+
+
+
+
+
+
+@app.route("/admin/alterar_senha", methods=["POST"], endpoint="alterar_senha_admin")
+def alterar_senha_admin():
+    if session.get("tipo") != "admin":
+        return redirect(url_for("login"))
+
+    admin = Utilizador.query.get_or_404(session["utilizador_id"])
+    senha_atual = request.form.get("senha_atual", "")
+    nova_senha = request.form.get("nova_senha", "")
+
+    if not admin.verificar_senha(senha_atual):
+        # renderiza o perfil com mensagem de erro (ou redirect)
+        return render_template("perfil_admin.html", admin=admin, senha_erro="Senha atual incorreta.")
+    if len(nova_senha) < 8:
+        return render_template("perfil_admin.html", admin=admin, senha_erro="A nova senha deve ter pelo menos 8 caracteres.")
+    admin.senha_hash = generate_password_hash(nova_senha)
+    db.session.commit()
+    return render_template("perfil_admin.html", admin=admin, senha_sucesso=True)
 
 
 

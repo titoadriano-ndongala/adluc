@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block conteudo %}
+
+<h2 style="margin:20px 0;font-size:24px;color:#333;">Editar Publicação</h2>
+
+<div style="max-width:700px;margin:auto;background:#fff;padding:25px;border-radius:10px;
+            box-shadow:0 4px 10px rgba(0,0,0,.1);transition:all .3s ease;">
+
+  <form method="POST" enctype="multipart/form-data" style="display:flex;flex-direction:column;gap:15px;">
+
+    <!-- Título -->
+    <div>
+      <label style="font-weight:600;color:#333;margin-bottom:6px;display:block;">Título</label>
+      <input type="text" name="titulo" value="{{ pub.titulo }}"
+             style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;font-size:15px;
+                    transition:border .3s;"
+             onfocus="this.style.border='1px solid #3366cc';"
+             onblur="this.style.border='1px solid #ccc';">
+    </div>
+
+    <!-- Tipo -->
+    <div>
+      <label style="font-weight:600;color:#333;margin-bottom:6px;display:block;">Tipo</label>
+      <select name="tipo"
+              style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;font-size:15px;
+                     transition:border .3s;">
+        <option value="noticia" {% if pub.tipo == "noticia" %}selected{% endif %}>📰 Notícia</option>
+        <option value="dica" {% if pub.tipo == "dica" %}selected{% endif %}>💡 Dica</option>
+      </select>
+    </div>
+
+    <!-- Conteúdo -->
+    <div>
+      <label style="font-weight:600;color:#333;margin-bottom:6px;display:block;">Conteúdo</label>
+      <textarea name="conteudo" rows="8"
+                style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:6px;font-size:15px;
+                       resize:vertical;transition:border .3s;">{{ pub.conteudo }}</textarea>
+    </div>
+
+    <!-- Foto -->
+    <div>
+      <label style="font-weight:600;color:#333;margin-bottom:6px;display:block;">Imagem (opcional)</label>
+      {% if pub.foto %}
+        <p style="margin-bottom:8px;">
+          <img src="{{ url_for('static', filename='uploads/' + pub.foto) }}" alt="Imagem da publicação"
+               style="max-width:150px;border-radius:6px;">
+        </p>
+      {% endif %}
+      <input type="file" name="foto" style="padding:8px;">
+    </div>
+
+    <!-- Botões -->
+    <div style="display:flex;justify-content:space-between;gap:10px;margin-top:10px;">
+      <a href="{{ url_for('gestao_publicacoes') }}"
+         style="flex:1;text-align:center;background:#777;color:#fff;padding:10px;border-radius:6px;
+                text-decoration:none;font-weight:600;transition:background .3s;"
+         onmouseover="this.style.background='#555';"
+         onmouseout="this.style.background='#777';">Cancelar</a>
+
+      <button type="submit"
+              style="flex:1;background:#6a199c;color:#fff;border:none;padding:10px;border-radius:6px;
+                     font-size:15px;font-weight:600;cursor:pointer;transition:background .3s;"
+              onmouseover="this.style.background='#2c0f3e';"
+              onmouseout="this.style.background='#882bbf';">
+        Guardar Alterações
+      </button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

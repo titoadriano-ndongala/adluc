@@ -1,24 +1,53 @@
 {% extends "base.html" %}
 {% block conteudo %}
-<h2>Oportunidades Guardadas</h2>
 
-<section class="vagas-lista">
+<h2 style="margin:20px 0;font-size:24px;color:#333;">Oportunidades Favoritas</h2>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(350px,1fr));gap:20px;">
+
   {% for fav in favoritos %}
-    <a
-      href="{% if fav.vaga.externa %}{{ fav.vaga.link_externo }}{% else %}{{ url_for('detalhes_vaga', vaga_id=fav.vaga.id) }}{% endif %}"
-      {% if fav.vaga.externa %}target="_blank"{% endif %}
-      class="card vaga-card card-link"
+    <div
+      style="background:#fff;border-radius:10px;padding:20px;box-shadow:0 2px 6px rgba(0,0,0,.1);
+             transition:all .3s ease;cursor:pointer;"
+      onmouseover="this.style.transform='translateY(-5px)';this.style.boxShadow='0 6px 16px rgba(0,0,0,0.15)';"
+      onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 2px 6px rgba(0,0,0,.1)';"
     >
-      <div class="linha-topo">
-        <span class="badge {% if fav.vaga.externa %}badge-azul{% else %}badge-verde{% endif %}">
-          {% if fav.vaga.externa %}Vaga Externa{% else %}Vaga Interna{% endif %}
-        </span>
+      <h3 style="margin:0;font-size:18px;color:#222;">
+        {{ fav.vaga.titulo }}
+      </h3>
+      <p style="font-size:14px;color:#555;margin:8px 0 12px;line-height:1.5;">
+        {{ fav.vaga.descricao[:180] }}...
+      </p>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+
+        <!-- Link para detalhes -->
+        <a href="{% if fav.vaga.externa %}{{ fav.vaga.link_externo }}{% else %}{{ url_for('detalhes_vaga', vaga_id=fav.vaga.id) }}{% endif %}"
+           {% if fav.vaga.externa %}target="_blank"{% endif %}
+           style="text-decoration:none;background:#882bbf;color:#fff;padding:8px 14px;border-radius:6px;
+                  font-size:14px;font-weight:600;transition:background .3s;"
+           onmouseover="this.style.background='#2c0f3e';"
+           onmouseout="this.style.background='#882bbf';">
+          Ver Detalhes
+        </a>
+
+        <!-- Botão desfavoritar -->
+        <form method="POST" action="{{ url_for('favoritar', vaga_id=fav.vaga.id) }}" style="margin:0;">
+          <button type="submit"
+                  style="background:#e74c3c;color:#fff;border:none;padding:8px 14px;border-radius:6px;
+                         font-size:13px;font-weight:600;cursor:pointer;transition:background .3s;"
+                  onmouseover="this.style.background='#c0392b';"
+                  onmouseout="this.style.background='#e74c3c';">
+            ❌ Remover
+          </button>
+        </form>
+
       </div>
-      <h3>{{ fav.vaga.titulo }}</h3>
-      <p>{{ fav.vaga.descricao[:140] }}...</p>
-    </a>
+    </div>
   {% else %}
-    <p>Não tens vagas guardadas.</p>
+    <p style="color:#777;">Ainda não guardou nenhuma vaga como favorita.</p>
   {% endfor %}
-</section>
+
+</div>
+
 {% endblock %}
