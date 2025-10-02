@@ -31,7 +31,6 @@
     <a href="{{ url_for('pagina_conteudos') }}">Portal de Notícias & Dicas</a>
 </nav>
 
-
   <div class="nav-buttons">
     {% if session.get('utilizador_id') %}
       <span class="user-info">Olá, {{ session.get('nome') }} ({{ session.get('tipo') }})</span>
@@ -45,18 +44,11 @@
   </div>
 </header>
 
-
-
-
-
-
-
 <!-- CONTEÚDO -->
 <main>
   {% block conteudo %}{% endblock %}
 </main>
 
-<!-- FOOTER -->
 <!-- FOOTER -->
 <footer class="site-footer">
   <div class="footer-columns">

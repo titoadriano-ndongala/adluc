@@ -24,7 +24,7 @@ class Utilizador(db.Model):
     telefone = db.Column(db.String(50), nullable=True)
     logo_empresa = db.Column(db.String(200), nullable=True)
 
-    # 🔹 Relacionamentos com CASCADE
+    #Relacionamentos com CASCADE
     candidaturas = db.relationship("Candidatura", backref="estudante",
                                    cascade="all, delete-orphan", lazy=True)
     favoritos = db.relationship("Favorito", backref="estudante",
@@ -54,7 +54,7 @@ class Vaga(db.Model):
     tipo = db.Column(db.String(50), nullable=True)
     externa = db.Column(db.Boolean, default=False, nullable=False)
     link_externo = db.Column(db.String(500), nullable=True)
-    imagem_externa = db.Column(db.String(500), nullable=True)   # ✅ novo campo
+    imagem_externa = db.Column(db.String(500), nullable=True)
     empresa_id = db.Column(db.Integer, db.ForeignKey("utilizadores.id"), nullable=True)
 
     candidaturas = db.relationship("Candidatura", backref="vaga",
@@ -89,7 +89,7 @@ class Publicacao(db.Model):
     data_hora = db.Column(db.DateTime, default=datetime.utcnow)
     foto = db.Column(db.String(200), nullable=True)
     conteudo = db.Column(db.Text, nullable=False)
-    tipo = db.Column(db.String(20), default="noticia")  # noticia ou dica
+    tipo = db.Column(db.String(20), default="noticia")
 
 
 class Comentario(db.Model):
