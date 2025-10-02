@@ -5,10 +5,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from werkzeug.utils import secure_filename
 from flask_mail import Mail, Message
 from modelos.modelos import db, Utilizador, Vaga, Candidatura, Favorito, Publicacao, Comentario
-from sqlalchemy import or_
-from flask_migrate import Migrate
-
-
 
 
 # RSS / HTTP / Scheduler
@@ -27,36 +23,19 @@ os.makedirs(os.path.join(BASE_DIR, "uploads"), exist_ok=True)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{os.path.join(BASE_DIR,'baseDados','adluc.db')}"
 
-# Se existir variável DATABASE_URL no ambiente, usa-a, senão usa SQLite (local)
-#DATABASE_URL = os.environ.get("DATABASE_URL", f"sqlite:///{os.path.join(BASE_DIR,'baseDados','adluc.db')}")
-
-# Render usa postgres:// mas SQLAlchemy precisa de postgresql://
-#if DATABASE_URL.startswith("postgres://"):
-#    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
-
-#app.config["SQLALCHEMY_DATABASE_URI"] = DATABASE_URL
-
-#migrate = Migrate(app, db)
-
-
-
-
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["UPLOAD_FOLDER"] = os.path.join(BASE_DIR, "uploads")
 app.config["MAX_CONTENT_LENGTH"] = 2 * 1024 * 1024  # 2MB
 
-# Configuração do e-mail (exemplo Gmail, mas pode ser outro servidor SMTP)
+# Configuração do e-mail
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'titoadriano.aryan@gmail.com'
-app.config['MAIL_PASSWORD'] = 'Ndongala931217420.'  # usa password de app, não a tua senha pessoal
+app.config['MAIL_PASSWORD'] = 'Ndongala931217420.'
 app.config['MAIL_DEFAULT_SENDER'] = ('adluc Notificações', 'titoadriano.aryan@gmail.com')
 
 mail = Mail(app)
-
-
-
 
 db.init_app(app)
 with app.app_context():
@@ -102,12 +81,12 @@ def _parse_feed(url: str):
     try:
         resp = _http_session().get(url, timeout=12)
         if resp.status_code != 200 or not resp.content:
-            print(f"⚠ feed HTTP {resp.status_code}: {url}")
+            print(f"feed HTTP {resp.status_code}: {url}")
             return []
         parsed = feedparser.parse(resp.content)
         return getattr(parsed, "entries", []) or []
     except Exception as e:
-        print(f"❌ feed erro {url}: {e}")
+        print(f"feed erro {url}: {e}")
         return []
 
 def _inferir_defaults_por_url(url: str):
@@ -123,10 +102,6 @@ SEMENTE_EXTERNAS = [
      "link":"https://exemplo-empregos.pt/estagio-dados","categoria":"Emprego (RSS)","tipo":"emprego"}
 ]
 
-
-
-
-
 def importar_vagas_externas():
     insercoes, total_entradas = 0, 0
     for url in FEEDS_EXTERNOS:
@@ -139,7 +114,7 @@ def importar_vagas_externas():
             if not link or not titulo:
                 continue
 
-            # 🔹 Tentar buscar imagem
+            # Tentar buscar imagem
             imagem = None
             if "media_content" in e and e.media_content:
                 imagem = e.media_content[0].get("url")
@@ -154,7 +129,7 @@ def importar_vagas_externas():
                     tipo=tipo_def,
                     externa=True,
                     link_externo=link,
-                    imagem_externa=imagem  # ✅ guarda se houver
+                    imagem_externa=imagem  # guarda se houver
                 ))
                 insercoes += 1
     if total_entradas == 0:
@@ -170,11 +145,6 @@ def importar_vagas_externas():
     if insercoes:
         db.session.commit()
 
-
-
-
-
-
 # ===== Scheduler (30 min) =====
 scheduler = BackgroundScheduler()
 def tarefa_atualizar_vagas():
@@ -182,13 +152,6 @@ def tarefa_atualizar_vagas():
         importar_vagas_externas()
 scheduler.add_job(tarefa_atualizar_vagas, "interval", minutes=30)
 scheduler.start()
-
-
-
-
-
-
-
 
 # ===== Rotas =====
 @app.route("/", endpoint="pagina_inicial")
@@ -207,9 +170,6 @@ def pagina_inicial():
                            noticias=noticias,
                            dicas=dicas,
                            fav_ids=ids_favoritos_do_estudante())
-
-
-
 
 # LOGIN
 @app.route("/login", methods=["GET","POST"], endpoint="login")
@@ -274,12 +234,6 @@ def registo():
                 return redirect(url_for("login"))
 
     return render_template("registo.html", erro=erro)
-
-
-
-
-
-
 
 # LISTA VAGAS (com filtros simples e paginação)
 @app.route("/vagas", endpoint="pagina_vagas")
@@ -412,9 +366,6 @@ def detalhes_vaga(vaga_id):
         fav_ids=ids_favoritos_do_estudante()
     )
 
-
-
-
 # FAVORITOS
 @app.route("/favoritar/<int:vaga_id>", methods=["POST"], endpoint="favoritar")
 def favoritar(vaga_id):
@@ -459,11 +410,6 @@ def publicar_vaga():
         db.session.add(vaga); db.session.commit()
         return redirect(url_for("minhas_vagas"))
     return render_template("publicar_vaga.html")
-
-
-
-
-
 
 @app.route("/minhas_vagas", endpoint="minhas_vagas")
 def minhas_vagas():
@@ -521,7 +467,6 @@ def logout():
     session.clear()
     return redirect(url_for("pagina_inicial"))
 
-
 @app.route("/estudante", endpoint="pagina_estudante")
 def pagina_estudante():
     if session.get("tipo") != "estudante":
@@ -555,7 +500,6 @@ def pagina_perfil():
 
     return render_template("perfil.html", estudante=estudante, erro=erro, sucesso=sucesso)
 
-
 @app.route("/perfil_empresa", methods=["GET", "POST"], endpoint="pagina_perfil_empresa")
 def pagina_perfil_empresa():
     if session.get("tipo") != "empresa":
@@ -582,10 +526,6 @@ def pagina_perfil_empresa():
 
     return render_template("perfil_empresa.html", empresa=empresa, erro=erro, sucesso=sucesso)
 
-
-
-
-#------------------
 @app.route("/perfil_admin", methods=["GET", "POST"], endpoint="pagina_perfil_admin")
 def pagina_perfil_admin():
     if session.get("tipo") != "admin":
@@ -602,11 +542,6 @@ def pagina_perfil_admin():
         sucesso = True
 
     return render_template("perfil_admin.html", admin=admin, sucesso=sucesso)
-
-
-
-
-
 
 #----------------------------Gestão de Publicações (CRUD)
 @app.route("/admin/publicacoes", endpoint="gestao_publicacoes")
@@ -681,8 +616,6 @@ def remover_publicacao(pub_id):
     db.session.commit()
     return redirect(url_for("gestao_publicacoes"))
 
-#-----------------------
-
 @app.route("/noticias", endpoint="pagina_noticias")
 def pagina_noticias():
     pubs = Publicacao.query.filter_by(tipo="noticia").order_by(Publicacao.data_hora.desc()).all()
@@ -707,13 +640,11 @@ def pagina_conteudos():
 
     return render_template("pagina_conteudos.html", noticias=noticias, dicas=dicas, mais_lidas=mais_lidas)
 
-
 @app.context_processor
 def inject_publicacoes_recentes():
     from modelos.modelos import Publicacao
     recentes = Publicacao.query.order_by(Publicacao.data_hora.desc()).limit(3).all()
     return dict(publicacoes_recentes=recentes)
-
 
 @app.route("/publicacao/<int:pub_id>/comentar", methods=["POST"], endpoint="comentar_publicacao")
 def comentar_publicacao(pub_id):
@@ -732,12 +663,12 @@ def comentar_publicacao(pub_id):
 
         # Enviar e-mail para o admin
         pub = Publicacao.query.get_or_404(pub_id)
-        autor = Utilizador.query.get(session["utilizador_id"]) #Se houver mais de 1 admin: Utilizador.query.filter_by(tipo="admin").all()
+        autor = Utilizador.query.get(session["utilizador_id"]) #Utilizador.query.filter_by(tipo="admin").all()
 
         link = url_for("detalhe_publicacao", pub_id=pub_id, _external=True)
 
         msg = Message(
-            subject=f"💬 Novo comentário em: {pub.titulo}",
+            subject=f"Novo comentário em: {pub.titulo}",
             recipients=["admin@adluc.pt"],  # <-- troca pelo e-mail real do admin
             body=f"""
 Olá Admin,
@@ -755,12 +686,11 @@ Sistema adluc
         )
         try:
             mail.send(msg)
-            print("📧 Notificação enviada para o admin")
+            print("Notificação enviada para o admin")
         except Exception as e:
-            print("❌ Erro ao enviar e-mail:", e)
+            print("Erro ao enviar e-mail:", e)
 
     return redirect(url_for("detalhe_publicacao", pub_id=pub_id))
-
 
 @app.route("/api/empresas")
 def api_empresas():
@@ -773,10 +703,6 @@ def api_empresas():
             resultados.append({"id": e.id, "nome": e.nome_empresa})
 
     return jsonify(resultados)
-
-
-
-
 
 @app.route("/api/vagas")
 def api_vagas():
@@ -832,12 +758,6 @@ def api_vagas():
         })
     return jsonify(resultados)
 
-
-
-
-
-
-
 @app.route("/sobre", endpoint="pagina_sobre")
 def pagina_sobre():
     return render_template("sobre.html")
@@ -857,9 +777,6 @@ def pagina_razoes():
 @app.route("/precos", endpoint="pagina_precos")
 def pagina_precos():
     return render_template("precos.html")
-
-
-
 
 #postgresql://adluc_db_user:gEjfLb67nwshZr0j4dLHnjNyXP2FIKwH@dpg-d3cpfnqdbo4c73edafd0-a.oregon-postgres.render.com/adluc_db
 #postgresql://adluc_db_user:gEjfLb67nwshZr0j4dLHnjNyXP2FIKwH@dpg-d3cpfnqdbo4c73edafd0-a/adluc_db
@@ -894,7 +811,6 @@ def editar_utilizador(utilizador_id):
 
     return render_template("editar_utilizador.html", utilizador=u, erro=erro, sucesso=sucesso)
 
-
 @app.route("/admin/utilizador/<int:utilizador_id>/remover", methods=["POST"], endpoint="remover_utilizador")
 def remover_utilizador(utilizador_id):
     if session.get("tipo") != "admin":
@@ -903,10 +819,6 @@ def remover_utilizador(utilizador_id):
     db.session.delete(u)
     db.session.commit()
     return redirect(url_for("gerir_utilizadores"))
-
-
-
-
 
 @app.route("/admin/relatorios", endpoint="relatorios")
 def relatorios():
@@ -946,18 +858,11 @@ def relatorios():
         total_dicas=total_dicas,
     )
 
-
-
 @app.route("/admin/configuracoes", endpoint="pagina_configuracoes")
 def pagina_configuracoes():
     if session.get("tipo") != "admin":
         return redirect(url_for("login"))
     return render_template("configuracoes.html")
-
-
-
-
-
 
 @app.route("/admin/alterar_senha", methods=["POST"], endpoint="alterar_senha_admin")
 def alterar_senha_admin():
@@ -977,8 +882,6 @@ def alterar_senha_admin():
     db.session.commit()
     return render_template("perfil_admin.html", admin=admin, senha_sucesso=True)
 
-
-
 @app.route("/comentario/<int:coment_id>/remover", methods=["POST"], endpoint="remover_comentario")
 def remover_comentario(coment_id):
     comentario = Comentario.query.get_or_404(coment_id)
@@ -986,8 +889,6 @@ def remover_comentario(coment_id):
         db.session.delete(comentario)
         db.session.commit()
     return redirect(url_for("detalhe_publicacao", pub_id=comentario.publicacao_id))
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)

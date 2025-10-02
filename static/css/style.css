@@ -2,7 +2,7 @@ html, body {
   height: 100%;
   display: flex;
   flex-direction: column;
-    background: #fbf8fb;
+  background: #fbf8fb;
 
 }
 
@@ -29,13 +29,9 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fbf8fb;color:#333;line-
 .btn-azul{background: #882bbf;color:#fff;border-radius: 5px;height:40px;width:70px; }
 .btn-azul:hover{background: #6a199c;}
 
-
-
-
-
 .hamburger{display:none;background:none;border:none;font-size:22px;cursor:pointer;}
 
-/* HERO */
+/* HERO > banner principal*/
 .hero{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;padding:60px 20px;}
 .hero-left h1{font-size:36px;font-weight:700;color:#333;margin-bottom:15px;}
 .hero-left .subtitulo{font-size:18px;color:#555;margin-bottom:25px;}
@@ -67,7 +63,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fbf8fb;color:#333;line-
 .footer-col a:hover{color: #c565fa;}
 .footer-bottom{background:#27072a;color:#999;text-align:center;padding:15px;font-size:13px;}
 .footer-col p {font-size:13px;color:#999;}
-/* AUTH PAGES */
+
+/* AUTH PAGES - auenticação */
 .auth-container{display:flex;align-items:center;justify-content:center;min-height:70vh;}
 .auth-card{background:#fff;border:1px solid #eee;padding:40px;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.1);max-width:400px;width:100%;text-align:center;}
 .auth-card h2{margin-bottom:10px;color:#333;}
@@ -88,7 +85,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fbf8fb;color:#333;line-
 .alerta-sucesso{background:#d4edda;color:#155724;}
 .alerta-erro{background:#f8d7da;color:#721c24;}
 
-/* RESPONSIVE */
+/* RESPONSIVO */
 @media(max-width:900px){.hero{grid-template-columns:1fr;}.hero-right{margin-top:20px;}}
 @media(max-width:700px){
   .nav-links{display:none;flex-direction:column;position:absolute;top:60px;left:0;width:100%;background:#fff;border-top:1px solid #eee;padding:10px 0;}
@@ -101,7 +98,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fbf8fb;color:#333;line-
   .vagas-carousel .card{min-width:260px;flex:0 0 auto;scroll-snap-align:start;}
 }
 
-/* ===== FILTROS (buscador moderno) ===== */
+/* FILTROS (buscador moderno) */
 .filtros-form label {
   margin-top:12px;
   font-weight:600;
@@ -137,7 +134,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#fbf8fb;color:#333;line-
   margin-top:10px;font-size:14px;color:#666;
 }
 
-/* ===== DARK MODE ===== */
+/* DARK MODE*/
 body.dark {
   background:#121212;
   color:#ddd;
@@ -156,7 +153,7 @@ body.dark .filtros-form input:focus, body.dark .filtros-form select:focus {
 body.dark .site-footer {background:#0f1827;}
 body.dark .footer-bottom {background:#0a101a;color:#888;}
 
-/* ===== DASHBOARD TILES ===== */
+/* DASHBOARD TILES */
 .dashboard-grid {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -204,8 +201,6 @@ body.dark .dashboard-tile p {
   color:#aaa;
 }
 
-
-
 .cv-info {
   font-size:14px;
   margin-bottom:10px;
@@ -224,10 +219,6 @@ body.dark .cv-info {color:#aaa;}
 }
 body.dark .user-info {color:#ddd;}
 
-
-
-
-----
 /* NEWS GRID */
 .news-grid {
   display:grid;
@@ -265,9 +256,7 @@ body.dark .user-info {color:#ddd;}
 .nav-links a:hover { color: #882bbf; }
 body.dark .nav-links a { color:#ddd; }
 
-
-
-/* ===== NEWS CAROUSEL ===== */
+/* NEWS CAROUSEL */
 .news-carousel {
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -290,7 +279,7 @@ body.dark .nav-links a { color:#ddd; }
 .news-content h3 {margin-bottom:8px;font-size:16px;}
 .news-content .meta {font-size:12px;color:#777;margin-bottom:6px;}
 
-/* Mobile → carrossel horizontal */
+/* Mobile  carrossel horizontal */
 @media(max-width:700px){
   .news-carousel {
     display:flex;
@@ -308,7 +297,7 @@ body.dark .nav-links a { color:#ddd; }
   }
 }
 
-/* ===== PORTAL CONTEÚDOS ===== */
+/* PORTAL CONTEÚDOS */
 .conteudos-grid {
   display:grid;
   grid-template-columns:2fr 1fr;
@@ -357,8 +346,6 @@ body.dark .mais-lidas a span.meta {color:#aaa;}
 body.dark .news-list a,
 body.dark .mais-lidas a {color: #c565fa;}
 
-
-
 /* ===== LAYOUT COM SIDEBAR ===== */
 .conteudo-com-sidebar {
   display:grid;
@@ -389,7 +376,6 @@ body.dark .sidebar-bloco a {color:#66aaff;}
   .conteudo-com-sidebar {grid-template-columns:1fr;}
   .sidebar {margin-top:20px;}
 }
-
 
 /* ===== COMENTÁRIOS ===== */
 .comentarios {
